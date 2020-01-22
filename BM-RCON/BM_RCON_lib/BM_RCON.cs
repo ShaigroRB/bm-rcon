@@ -48,6 +48,11 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        public void Disconnect()
+        {
+            client.Close();
+        }
+
         public byte[] CreatePacket(RequestType RequestType, string body)
         {
             // reqType needs to be an 16-bit integer

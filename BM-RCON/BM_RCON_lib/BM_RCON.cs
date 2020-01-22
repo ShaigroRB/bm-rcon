@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace BM_RCON.BM_RCON_lib
 {
@@ -9,12 +11,41 @@ namespace BM_RCON.BM_RCON_lib
         string address;
         int port;
         string password;
+        TcpClient client;
 
         public BM_RCON(string addr, int port, string password)
         {
             this.address = addr;
             this.port = port;
             this.password = password;
+            this.client = new TcpClient(addr, port);
+        }
+
+        public int Connect()
+        {
+            int status = 0;
+            NetworkStream stream = client.GetStream();
+            try
+            {
+                Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
+                                    address, port, password);
+                // initialize client
+                stream.ReadTimeout = 4000;
+
+                byte[] packet_connection = CreatePacket(RequestType.login, password);
+
+                // send request
+                stream.Write(packet_connection, 0, packet_connection.Length);
+                Console.WriteLine("Connection successful.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to connect.");
+                Console.WriteLine("Error: {0}", e.ToString());
+                status = 1;
+            }
+            stream.Close();
+            return status;
         }
 
         public byte[] CreatePacket(RequestType RequestType, string body)

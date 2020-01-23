@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
-using System.Threading;
 
 namespace BM_RCON.BM_RCON_lib
 {
@@ -55,6 +53,12 @@ namespace BM_RCON.BM_RCON_lib
 
         public byte[] CreatePacket(RequestType RequestType, string body)
         {
+            /*
+             * final_packet is a concatenation of:
+             * - a short (16-bit integer) corresponding to the request's type
+             * - a string corresponding to the parameters specific for each request type
+            */
+
             // reqType needs to be an 16-bit integer
             short req_type = (short)RequestType;
             UTF8Encoding uTF8 = new UTF8Encoding();
@@ -80,6 +84,20 @@ namespace BM_RCON.BM_RCON_lib
             final_packet[byte_ptr] = (byte)0;
 
             return final_packet;
+        }
+
+        public string ParsePacket(byte[] pckt_bytes)
+        {
+            /*
+             * pckt_bytes is a concatenation of:
+             * - the start delimiter "┐"
+             * - a short (16-bit integer) corresponding to the size of the JSON
+             * - a short (16-bit integer) corresponding to eventID of the RCON event
+             * - the JSON
+             * - the end delimiter "└"
+            */
+            string pckt_string = "";
+            return pckt_string;
         }
     }
 }

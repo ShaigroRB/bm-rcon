@@ -11,12 +11,20 @@ namespace BM_RCON.BM_RCON_lib
         string password;
         TcpClient client;
 
+        // delimiters
+        byte[] start_del_bytes;
+        byte[] end_del_bytes;
+
         public BM_RCON(string addr, int port, string password)
         {
             this.address = addr;
             this.port = port;
             this.password = password;
             this.client = new TcpClient(addr, port);
+            
+            UTF8Encoding uTF8 = new UTF8Encoding();
+            this.start_del_bytes = uTF8.GetBytes("┐");
+            this.end_del_bytes = uTF8.GetBytes("└");
         }
 
         public int Connect()
@@ -96,6 +104,34 @@ namespace BM_RCON.BM_RCON_lib
              * - the JSON
              * - the end delimiter "└"
             */
+
+            UTF8Encoding uTF8 = new UTF8Encoding();
+
+            // skip the start delimiter
+            int byte_ptr = start_del_bytes.Length;
+
+            // number of bytes for 16-bit integer
+            int short_bytes = 2;
+
+            byte[] json_size_bytes = new byte[short_bytes];
+            byte[] eventID_bytes = new byte[short_bytes];
+
+            // get the bytes for json size
+            Array.Copy(pckt_bytes, byte_ptr, json_size_bytes, 0, short_bytes);
+            byte_ptr += short_bytes;
+
+            // get the bytes for eventID
+            Array.Copy(pckt_bytes, byte_ptr, eventID_bytes, 0, short_bytes);
+            byte_ptr += short_bytes;
+
+            // convert bytes to short
+            short json_size = BitConverter.ToInt16(json_size_bytes, 0);
+            short eventID = BitConverter.ToInt16(eventID_bytes, 0);
+
+
+            Console.WriteLine("JSON size: {0}", json_size.ToString());
+            Console.WriteLine("Event ID: {0}", eventID.ToString());
+
             string pckt_string = "";
             return pckt_string;
         }

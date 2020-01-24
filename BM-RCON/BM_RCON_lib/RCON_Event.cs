@@ -10,6 +10,7 @@ namespace BM_RCON.BM_RCON_lib
         short json_size;
         short eventID;
         string json_str;
+        dynamic json_obj;
 
         public RCON_Event(short json_size, short eventID, string json)
         {
@@ -18,7 +19,10 @@ namespace BM_RCON.BM_RCON_lib
             this.json_size = json_size;
             // the event ID is in also in the json, if needed
             this.eventID = eventID;
+            // json as string
             this.json_str = json;
+            // json as object
+            this.json_obj = JObject.Parse(json);
         }
 
         public short JsonSize
@@ -49,7 +53,7 @@ namespace BM_RCON.BM_RCON_lib
         {
             get
             {
-                return JObject.Parse(json_str);
+                return json_obj;
             }
         }
 

@@ -94,7 +94,7 @@ namespace BM_RCON.BM_RCON_lib
             return final_packet;
         }
 
-        public string ParsePacket(byte[] pckt_bytes)
+        public RCON_Event ParsePacket(byte[] pckt_bytes)
         {
             /*
              * pckt_bytes is a concatenation of:
@@ -122,11 +122,9 @@ namespace BM_RCON.BM_RCON_lib
             // get json as string from bytes and remove the end delimiter
             string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
 
-            Console.WriteLine("JSON size: {0}", json_size.ToString());
-            Console.WriteLine("Event ID: {0}", eventID.ToString());
-            Console.WriteLine("JSON: {0}", pckt_json);
+            RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json);
 
-            return pckt_json;
+            return rcon_event;
         }
     }
 }

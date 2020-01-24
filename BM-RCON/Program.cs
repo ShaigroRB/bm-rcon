@@ -5,6 +5,7 @@ using System.Threading;
 
 // alias for namespace
 using BM_RCON_lib = BM_RCON.BM_RCON_lib;
+using RequestType = BM_RCON.BM_RCON_lib.RequestType;
 
 
 namespace BM_RCON
@@ -37,6 +38,23 @@ namespace BM_RCON
                 if (test_lib)
                 {
                     rcon_obj.Connect();
+
+                    Thread.Sleep(160);
+                    rcon_obj.SendRequest(RequestType.command, "enablemutators");
+                    Thread.Sleep(160); // 1
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (1)\" \"255\"");
+                    Thread.Sleep(160); // 2
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (2)\" \"255\"");
+                    Thread.Sleep(160); // 3
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (3)\" \"255\"");
+                    Thread.Sleep(160); // ping
+                    rcon_obj.SendRequest(RequestType.ping, "It's okay.");
+                    Thread.Sleep(160); // 4
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (4)\" \"255\"");
+                    Thread.Sleep(160); // 5
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (5)\" \"255\"");
+                    Thread.Sleep(160); // last request before disconnecting
+
                     rcon_obj.Disconnect();
                 }
 

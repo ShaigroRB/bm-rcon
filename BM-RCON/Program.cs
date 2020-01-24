@@ -40,10 +40,10 @@ namespace BM_RCON
                     rcon_obj.Disconnect();
                 }
 
-                byte[] finalPacket = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.login, body);
-
                 if (!test_lib)
                 {
+
+                    byte[] finalPacket = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.login, body);
                     TcpClient client = new TcpClient(addr, port);
                     NetworkStream stream = client.GetStream();
                     stream.ReadTimeout = 4000;

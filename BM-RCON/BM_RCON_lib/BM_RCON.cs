@@ -35,8 +35,8 @@ namespace BM_RCON.BM_RCON_lib
             {
                 Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
                                     address, port, password);
-                // initialize client
-                stream.ReadTimeout = 4000;
+
+                stream.WriteTimeout = 10000;
 
                 byte[] packet_connection = CreatePacket(RequestType.login, password);
 

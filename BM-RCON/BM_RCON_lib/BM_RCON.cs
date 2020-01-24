@@ -145,5 +145,18 @@ namespace BM_RCON.BM_RCON_lib
             }
             return status;
         }
+
+        public int SendRequest(RequestType req_type, string body)
+        {
+            byte[] pckt = CreatePacket(req_type, body);
+            int status = SendRequest(pckt);
+            if (status == 1)
+            {
+                Console.Write("Failed to send request of type {0} and of body {1}", 
+                                req_type.ToString(),
+                                body);
+            }
+            return status;
+        }
     }
 }

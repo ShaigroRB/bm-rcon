@@ -21,11 +21,29 @@ namespace BM_RCON.BM_RCON_lib
             this.json_str = json;
         }
 
-        public short JsonSize { get;  }
+        public short JsonSize
+        {
+            get
+            {
+                return json_size;
+            }
+        }
 
-        public short EventID { get;  }
+        public short EventID
+        {
+            get
+            {
+                return eventID;
+            }
+        }
 
-        public string JsonAsString { get;  }
+        public string JsonAsString
+        {
+            get
+            {
+                return json_str;
+            }
+        }
 
         public dynamic JsonAsObj
         {

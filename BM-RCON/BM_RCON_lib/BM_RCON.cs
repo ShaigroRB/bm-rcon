@@ -128,12 +128,18 @@ namespace BM_RCON.BM_RCON_lib
             short json_size = BitConverter.ToInt16(json_size_bytes, 0);
             short eventID = BitConverter.ToInt16(eventID_bytes, 0);
 
+            // get json of the packet
+            byte[] pckt_json_bytes = new byte[json_size];
+            Array.Copy(pckt_bytes, byte_ptr, pckt_json_bytes, 0, json_size);
+
+            // convert to string and remove the end delimiter
+            string pckt_json = uTF8.GetString(pckt_json_bytes, 0, json_size).TrimEnd('└');
 
             Console.WriteLine("JSON size: {0}", json_size.ToString());
             Console.WriteLine("Event ID: {0}", eventID.ToString());
+            Console.WriteLine("JSON: {0}", pckt_json);
 
-            string pckt_string = "";
-            return pckt_string;
+            return pckt_json;
         }
     }
 }

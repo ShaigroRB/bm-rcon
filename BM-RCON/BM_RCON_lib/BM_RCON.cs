@@ -113,27 +113,14 @@ namespace BM_RCON.BM_RCON_lib
             // number of bytes for 16-bit integer
             int short_bytes = 2;
 
-            byte[] json_size_bytes = new byte[short_bytes];
-            byte[] eventID_bytes = new byte[short_bytes];
-
-            // get the bytes for json size
-            Array.Copy(pckt_bytes, byte_ptr, json_size_bytes, 0, short_bytes);
-            byte_ptr += short_bytes;
-
-            // get the bytes for eventID
-            Array.Copy(pckt_bytes, byte_ptr, eventID_bytes, 0, short_bytes);
-            byte_ptr += short_bytes;
-
             // convert bytes to short
-            short json_size = BitConverter.ToInt16(json_size_bytes, 0);
-            short eventID = BitConverter.ToInt16(eventID_bytes, 0);
+            short json_size = BitConverter.ToInt16(pckt_bytes, byte_ptr);
+            byte_ptr += short_bytes;
+            short eventID = BitConverter.ToInt16(pckt_bytes, byte_ptr);
+            byte_ptr += short_bytes;
 
-            // get json of the packet
-            byte[] pckt_json_bytes = new byte[json_size];
-            Array.Copy(pckt_bytes, byte_ptr, pckt_json_bytes, 0, json_size);
-
-            // convert to string and remove the end delimiter
-            string pckt_json = uTF8.GetString(pckt_json_bytes, 0, json_size).TrimEnd('└');
+            // get json as string from bytes and remove the end delimiter
+            string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
 
             Console.WriteLine("JSON size: {0}", json_size.ToString());
             Console.WriteLine("Event ID: {0}", eventID.ToString());

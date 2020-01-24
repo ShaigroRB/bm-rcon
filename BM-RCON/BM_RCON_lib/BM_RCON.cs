@@ -32,12 +32,12 @@ namespace BM_RCON.BM_RCON_lib
         public int Connect()
         {
             int status = 0;
-            NetworkStream stream = client.GetStream();
             try
             {
                 Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
                                     address, port, password);
 
+                NetworkStream stream = client.GetStream();
                 stream.WriteTimeout = 7000;
 
                 byte[] packet_connection = CreatePacket(RequestType.login, password);
@@ -131,9 +131,9 @@ namespace BM_RCON.BM_RCON_lib
         public int SendRequest(byte[] req)
         {
             int status = 0;
-            NetworkStream stream = client.GetStream();
             try
             {
+                NetworkStream stream = client.GetStream();
                 stream.WriteTimeout = 7000;
                 stream.Write(req, 0, req.Length);
             }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
-using System.Threading;
 
 namespace BM_RCON.BM_RCON_lib
 {
@@ -13,12 +11,20 @@ namespace BM_RCON.BM_RCON_lib
         string password;
         TcpClient client;
 
+        // delimiters
+        byte[] start_del_bytes;
+        byte[] end_del_bytes;
+
         public BM_RCON(string addr, int port, string password)
         {
             this.address = addr;
             this.port = port;
             this.password = password;
             this.client = new TcpClient(addr, port);
+            
+            UTF8Encoding uTF8 = new UTF8Encoding();
+            this.start_del_bytes = uTF8.GetBytes("┐");
+            this.end_del_bytes = uTF8.GetBytes("└");
         }
 
         public int Connect()
@@ -55,6 +61,12 @@ namespace BM_RCON.BM_RCON_lib
 
         public byte[] CreatePacket(RequestType RequestType, string body)
         {
+            /*
+             * final_packet is a concatenation of:
+             * - a short (16-bit integer) corresponding to the request's type
+             * - a string corresponding to the parameters specific for each request type
+            */
+
             // reqType needs to be an 16-bit integer
             short req_type = (short)RequestType;
             UTF8Encoding uTF8 = new UTF8Encoding();
@@ -80,6 +92,39 @@ namespace BM_RCON.BM_RCON_lib
             final_packet[byte_ptr] = (byte)0;
 
             return final_packet;
+        }
+
+        public RCON_Event ParsePacket(byte[] pckt_bytes)
+        {
+            /*
+             * pckt_bytes is a concatenation of:
+             * - the start delimiter "┐"
+             * - a short (16-bit integer) corresponding to the size of the JSON
+             * - a short (16-bit integer) corresponding to eventID of the RCON event
+             * - the JSON
+             * - the end delimiter "└"
+            */
+
+            UTF8Encoding uTF8 = new UTF8Encoding();
+
+            // skip the start delimiter
+            int byte_ptr = start_del_bytes.Length;
+
+            // number of bytes for 16-bit integer
+            int short_bytes = 2;
+
+            // convert bytes to short
+            short json_size = BitConverter.ToInt16(pckt_bytes, byte_ptr);
+            byte_ptr += short_bytes;
+            short eventID = BitConverter.ToInt16(pckt_bytes, byte_ptr);
+            byte_ptr += short_bytes;
+
+            // get json as string from bytes and remove the end delimiter
+            string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
+
+            RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json);
+
+            return rcon_event;
         }
     }
 }

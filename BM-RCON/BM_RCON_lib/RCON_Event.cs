@@ -52,5 +52,12 @@ namespace BM_RCON.BM_RCON_lib
                 return JObject.Parse(json_str);
             }
         }
+
+        public void Print()
+        {
+            Console.WriteLine("JSON size: {0}", JsonSize.ToString());
+            Console.WriteLine("Event ID: {0}", EventID.ToString());
+            Console.WriteLine("JSON: {0}", JsonAsString);
+        }
     }
 }

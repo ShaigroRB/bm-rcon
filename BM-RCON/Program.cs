@@ -5,6 +5,7 @@ using System.Threading;
 
 // alias for namespace
 using BM_RCON_lib = BM_RCON.BM_RCON_lib;
+using RequestType = BM_RCON.BM_RCON_lib.RequestType;
 
 
 namespace BM_RCON
@@ -38,27 +39,20 @@ namespace BM_RCON
                 {
                     rcon_obj.Connect();
 
-                    byte[] evt_text1 = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.command, "echo \"Success! (1)\" \"255\"");
-                    byte[] evt_text2 = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.command, "echo \"Success! (2)\" \"255\"");
-                    byte[] evt_text3 = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.command, "echo \"Success! (3)\" \"255\"");
-                    byte[] evt_text4 = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.command, "echo \"Success! (4)\" \"255\"");
-                    byte[] evt_text5 = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.command, "echo \"Success! (5)\" \"255\"");
-                    byte[] empty = rcon_obj.CreatePacket(BM_RCON_lib.RequestType.command, "enablemutators");
-
                     Thread.Sleep(160);
-                    rcon_obj.SendRequest(empty);
+                    rcon_obj.SendRequest(RequestType.command, "enablemutators");
                     Thread.Sleep(160); // 1
-                    rcon_obj.SendRequest(evt_text1);
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (1)\" \"255\"");
                     Thread.Sleep(160); // 2
-                    rcon_obj.SendRequest(evt_text2);
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (2)\" \"255\"");
                     Thread.Sleep(160); // 3
-                    rcon_obj.SendRequest(evt_text3);
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (3)\" \"255\"");
                     Thread.Sleep(160); // ping
-                    rcon_obj.SendRequest(rcon_obj.CreatePacket(BM_RCON_lib.RequestType.ping, "It's okay."));
+                    rcon_obj.SendRequest(RequestType.ping, "It's okay.");
                     Thread.Sleep(160); // 4
-                    rcon_obj.SendRequest(evt_text4);
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (4)\" \"255\"");
                     Thread.Sleep(160); // 5
-                    rcon_obj.SendRequest(evt_text5);
+                    rcon_obj.SendRequest(RequestType.command, "echo \"Success! (5)\" \"255\"");
                     Thread.Sleep(160); // last request before disconnecting
 
                     rcon_obj.Disconnect();

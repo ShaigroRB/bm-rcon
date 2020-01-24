@@ -9,6 +9,8 @@ namespace BM_RCON.BM_RCON_lib
         string address;
         int port;
         string password;
+
+        // One client to rule them all
         TcpClient client;
 
         // delimiters
@@ -36,7 +38,7 @@ namespace BM_RCON.BM_RCON_lib
                 Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
                                     address, port, password);
 
-                stream.WriteTimeout = 10000;
+                stream.WriteTimeout = 7000;
 
                 byte[] packet_connection = CreatePacket(RequestType.login, password);
 
@@ -50,7 +52,6 @@ namespace BM_RCON.BM_RCON_lib
                 Console.WriteLine("Error: {0}", e.ToString());
                 status = 1;
             }
-            stream.Close();
             return status;
         }
 
@@ -125,6 +126,24 @@ namespace BM_RCON.BM_RCON_lib
             RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json);
 
             return rcon_event;
+        }
+
+        public int SendRequest(byte[] req)
+        {
+            int status = 0;
+            NetworkStream stream = client.GetStream();
+            try
+            {
+                stream.WriteTimeout = 7000;
+                stream.Write(req, 0, req.Length);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to send a request.");
+                Console.WriteLine("Error: {0}", e.ToString());
+                status = 1;
+            }
+            return status;
         }
     }
 }

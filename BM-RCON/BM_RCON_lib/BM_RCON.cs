@@ -174,6 +174,7 @@ namespace BM_RCON.BM_RCON_lib
             {
                 // always get stream, and do not close it afterwards
                 NetworkStream stream = client.GetStream();
+                stream.ReadTimeout = 7000;
 
                 byte[] packet_received = new byte[client.ReceiveBufferSize];
                 if (client.ReceiveBufferSize > 0)

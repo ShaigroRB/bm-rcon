@@ -158,5 +158,38 @@ namespace BM_RCON.BM_RCON_lib
             }
             return status;
         }
+
+        public RCON_Event ReceiveEvent()
+        {
+            RCON_Event rcon_evt = null;
+            try
+            {
+                // always get stream, and do not close it afterwards
+                NetworkStream stream = client.GetStream();
+
+                byte[] packet_received = new byte[client.ReceiveBufferSize];
+                if (client.ReceiveBufferSize > 0)
+                {
+                    // reads data from stream and put it in the buffer "packet_received"
+                    stream.Read(packet_received, 0, packet_received.Length);
+
+                    Console.WriteLine("Event received.");
+                    Console.WriteLine("Parsing event...");
+
+                    rcon_evt = ParsePacket(packet_received);
+
+                    Console.WriteLine("Parsing finished.");
+                    Console.WriteLine("Printing event:");
+                    rcon_evt.Print();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to receive event.");
+                Console.WriteLine("Error: {0}", e.ToString());
+            }
+
+            return rcon_evt;
+        }
     }
 }

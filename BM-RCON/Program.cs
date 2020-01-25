@@ -40,6 +40,9 @@ namespace BM_RCON
                     rcon_obj.Connect();
 
                     Thread.Sleep(160);
+                    rcon_obj.ReceiveEvent();
+
+                    Thread.Sleep(160);
                     rcon_obj.SendRequest(RequestType.command, "enablemutators");
                     Thread.Sleep(160); // 1
                     rcon_obj.SendRequest(RequestType.command, "echo \"Success! (1)\" \"255\"");

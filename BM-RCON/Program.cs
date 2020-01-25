@@ -21,6 +21,14 @@ namespace BM_RCON
         {
             Thread.Sleep(160);
             rcon.SendRequest(requestType, body);
+            Console.WriteLine("");
+        }
+
+        private static lib.RCON_Event receiveEvt(lib.BM_RCON rcon)
+        {
+            lib.RCON_Event evt =  rcon.ReceiveEvent();
+            Console.WriteLine("");
+            return evt;
         }
 
         static int Main(string[] args)

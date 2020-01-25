@@ -40,11 +40,15 @@ namespace BM_RCON.BM_RCON_lib
                 NetworkStream stream = client.GetStream();
                 stream.WriteTimeout = 7000;
 
-                byte[] packet_connection = CreatePacket(RequestType.login, password);
-
-                // send request
-                stream.Write(packet_connection, 0, packet_connection.Length);
-                Console.WriteLine("Connection successful.");
+                status = SendRequest(RequestType.login, password);
+                if (status == 1)
+                {
+                    Console.WriteLine("Failed to connect.");
+                }
+                else
+                {
+                    Console.WriteLine("Connection successful.");
+                }
             }
             catch (Exception e)
             {

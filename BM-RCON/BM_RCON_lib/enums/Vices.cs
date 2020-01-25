@@ -41,6 +41,6 @@
         espresso = 36,
         antacids = 37,
         varian_cigar = 38,
-        water
+        water = 39
     }
 }

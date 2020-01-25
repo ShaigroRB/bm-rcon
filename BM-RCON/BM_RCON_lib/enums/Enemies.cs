@@ -28,7 +28,6 @@
         operator_ = 22,
         cowboy = 23,
         archer = 24
-
     }
 
     enum SubtypeID

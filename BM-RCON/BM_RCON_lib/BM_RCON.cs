@@ -23,7 +23,7 @@ namespace BM_RCON.BM_RCON_lib
             this.port = port;
             this.password = password;
             this.client = new TcpClient(addr, port);
-            
+
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");
             this.end_del_bytes = uTF8.GetBytes("└");
@@ -62,6 +62,7 @@ namespace BM_RCON.BM_RCON_lib
         public void Disconnect()
         {
             client.Close();
+            Console.WriteLine("Client {0}:{1} disconnected.", address, port);
         }
 
         public byte[] CreatePacket(RequestType RequestType, string body)
@@ -140,6 +141,9 @@ namespace BM_RCON.BM_RCON_lib
                 NetworkStream stream = client.GetStream();
                 stream.WriteTimeout = 7000;
                 stream.Write(req, 0, req.Length);
+
+                Console.WriteLine("Request ({0}) sent.",
+                                    Encoding.UTF8.GetString(req));
             }
             catch (Exception e)
             {
@@ -156,7 +160,7 @@ namespace BM_RCON.BM_RCON_lib
             int status = SendRequest(pckt);
             if (status == 1)
             {
-                Console.Write("Failed to send request of type {0} and of body {1}", 
+                Console.Write("Failed to send request of type {0} and of body {1}",
                                 req_type.ToString(),
                                 body);
             }
@@ -177,14 +181,9 @@ namespace BM_RCON.BM_RCON_lib
                     // reads data from stream and put it in the buffer "packet_received"
                     stream.Read(packet_received, 0, packet_received.Length);
 
-                    Console.WriteLine("Event received.");
-                    Console.WriteLine("Parsing event...");
-
                     rcon_evt = ParsePacket(packet_received);
 
-                    Console.WriteLine("Parsing finished.");
-                    Console.WriteLine("Printing event:");
-                    rcon_evt.Print();
+                    Console.WriteLine("Event ({0}) received.", rcon_evt.EventID);
                 }
             }
             catch (Exception e)

@@ -22,7 +22,6 @@ namespace BM_RCON.BM_RCON_lib
             this.address = addr;
             this.port = port;
             this.password = password;
-            this.client = new TcpClient(addr, port);
 
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");
@@ -36,6 +35,9 @@ namespace BM_RCON.BM_RCON_lib
             {
                 Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
                                     address, port, password);
+
+                // no method to reconnect, let's instanciate one each time...
+                this.client = new TcpClient(this.address, this.port);
 
                 NetworkStream stream = client.GetStream();
                 stream.WriteTimeout = 7000;

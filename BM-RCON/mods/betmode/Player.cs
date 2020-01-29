@@ -13,6 +13,7 @@ namespace BM_RCON.mods.betmode
         int[] vices;
         bool is_connected;
         bool is_alive;
+        VoteState vote_state;
 
         public Player(string name, string profile)
         {
@@ -22,6 +23,7 @@ namespace BM_RCON.mods.betmode
             // when a player is created, it means the player just connected
             this.is_connected = true;
             this.is_alive = false;
+            this.vote_state = VoteState.NOTHING;
         }
 
         public string Profile

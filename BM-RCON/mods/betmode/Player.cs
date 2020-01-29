@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViceID = BM_RCON.BM_RCON_lib.ViceID;
 
 namespace BM_RCON.mods.betmode
 {
@@ -21,6 +22,42 @@ namespace BM_RCON.mods.betmode
             // when a player is created, it means the player just connected
             this.is_connected = true;
             this.is_alive = false;
+        }
+
+        public string Profile
+        {
+            get;
+        }
+
+        public short[] Vices
+        {
+            get;
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return this.is_connected;
+            }
+            
+            set
+            {
+                this.is_connected = value;
+            }
+        }
+
+        public bool IsAlive
+        {
+            get
+            {
+                return this.is_alive;
+            }
+            
+            set
+            {
+                this.is_alive = value;
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace BM_RCON.mods.betmode
         string name;
         string profile;
         // type of vice is the index in the list
-        short[] vices;
+        int[] vices;
         bool is_connected;
         bool is_alive;
 
@@ -18,7 +18,7 @@ namespace BM_RCON.mods.betmode
         {
             this.name = name;
             this.profile = profile;
-            this.vices = new short[40];
+            this.vices = new int[40];
             // when a player is created, it means the player just connected
             this.is_connected = true;
             this.is_alive = false;
@@ -29,7 +29,7 @@ namespace BM_RCON.mods.betmode
             get;
         }
 
-        public short[] Vices
+        public int[] Vices
         {
             get;
         }
@@ -58,6 +58,16 @@ namespace BM_RCON.mods.betmode
             {
                 this.is_alive = value;
             }
+        }
+
+        public void ViceUsed(ViceID vice)
+        {
+            this.vices[(short)vice] -= 1;
+        }
+
+        public void VicesAdded(ViceID vice, int amount)
+        {
+            this.vices[(short)vice] += amount;
         }
     }
 }

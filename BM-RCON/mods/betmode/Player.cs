@@ -71,5 +71,17 @@ namespace BM_RCON.mods.betmode
         {
             this.vices[(short)vice] += amount;
         }
+
+        public void Connected()
+        {
+            this.is_connected = true;
+            this.vote_state = VoteState.NOTHING;
+        }
+
+        public void Disconnected()
+        {
+            this.is_connected = false;
+            this.vote_state = VoteState.OFFLINE;
+        }
     }
 }

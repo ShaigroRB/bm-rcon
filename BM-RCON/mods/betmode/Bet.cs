@@ -87,5 +87,25 @@ namespace BM_RCON.mods.betmode
             randomizeVices();
             randomizeBosses();
         }
+
+        public bool IsBetWon()
+        {
+            bool is_bet_won = false;
+            int nb_players = this.nb_players;
+            int nb_players_alive = 0;
+
+            for (int i = 0; !is_bet_won && i < nb_players; i++)
+            {
+                if (this.players_in_bet[i].IsAlive)
+                {
+                    nb_players_alive++;
+                    if (nb_players_alive >= this.bet)
+                    {
+                        is_bet_won = true;
+                    }
+                }
+            }
+            return is_bet_won;
+        }
     }
 }

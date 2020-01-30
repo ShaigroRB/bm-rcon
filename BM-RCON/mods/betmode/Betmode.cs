@@ -48,7 +48,13 @@ namespace BM_RCON.mods.betmode
               *     - Set the Player as dead
               *     - Update the Bet (if one) with the Player
               * - survival_get_vice:
+              *     - Get profile and new vice
+              *     - Search for the Player with the corresponding profile
+              *     - Update its vices with the new vice
               * - survival_use_vice:
+              *     - Get profile and vice used
+              *     - Search for the Player with the corresponding profile
+              *     - Update its vices with vice used
               * - survival_new_wave
               * - survival_flag_unlocked
               * - chat_message

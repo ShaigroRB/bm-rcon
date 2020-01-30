@@ -27,6 +27,8 @@ namespace BM_RCON.mods.betmode
             this.bet = bet;
             this.enemies = new int[total_nb_enemies];
             this.vices = new int[total_nb_vices];
+            // maximum of players in a server is 20 people
+            this.players_in_bet = new Player[20];
 
             randomizeBosses();
             randomizeVices();
@@ -60,6 +62,11 @@ namespace BM_RCON.mods.betmode
                 vice = rnd.Next(first_vice, last_vice);
                 this.enemies[vice] += 1;
             }
+        }
+
+        public void SetPlayersInBet(Player[] players)
+        {
+            Array.Copy(players, this.players_in_bet, players.Length);
         }
     }
 }

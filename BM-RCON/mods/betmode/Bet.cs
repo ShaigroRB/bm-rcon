@@ -11,11 +11,13 @@ namespace BM_RCON.mods.betmode
         /*
          * In early waves, enemies will only be bosses.
          * In later waves, enemies will be bosses and minions.
+         * I may add sub-types later on.
         */
         int[] enemies;
         int[] vices;
         // players in bet are the connected players when the flag unlocks for the next wave
         Player[] players_in_bet;
+        int nb_players;
 
         public Bet(int bet)
         {
@@ -64,9 +66,26 @@ namespace BM_RCON.mods.betmode
             }
         }
 
-        public void SetPlayersInBet(Player[] players)
+        public void SetPlayersInBet(Player[] players, int nb_players)
         {
-            Array.Copy(players, this.players_in_bet, players.Length);
+            Array.Copy(players, this.players_in_bet, nb_players);
+            this.nb_players = nb_players;
+        }
+
+        private void clearAllArrays()
+        {
+            Array.Clear(this.enemies, 0, this.enemies.Length);
+            Array.Clear(this.vices, 0, 40);
+            Array.Clear(this.players_in_bet, 0, 20);
+        }
+
+        public void UpdateBet(int nb_bet)
+        {
+            this.bet = nb_bet;
+            clearAllArrays();
+
+            randomizeVices();
+            randomizeBosses();
         }
     }
 }

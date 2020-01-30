@@ -83,5 +83,10 @@ namespace BM_RCON.mods.betmode
             this.is_connected = false;
             this.vote_state = VoteState.OFFLINE;
         }
+
+        public bool SameProfileAs(Player obj)
+        {
+            return this.profile.Equals(obj.Profile);
+        }
     }
 }

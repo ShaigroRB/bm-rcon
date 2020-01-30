@@ -57,6 +57,7 @@ namespace BM_RCON.mods.betmode
               *     - Update its vices with vice used
               * - survival_new_wave:
               *     - Stop checking for vote in chat for next Bet
+              *     - Set VoteState of all connected_players to NOTHING
               *     - Set Players in Bet with connected_players
               *     - Decide if next Bet is accepted or not depending on VoteState of Players
               *     - If accepted, set is_bet_flag_unlocked to true
@@ -71,7 +72,14 @@ namespace BM_RCON.mods.betmode
               *     - Check is_bet_flag_unlocked
               *     - If true, for each enemies in Bet:
               *         - Send request to spawn the enemy
-              * - chat_message
+              * - chat_message:
+              *     - Check if next Bet exists
+              *     - If yes, check if !vote <yes/no> has been written:
+              *         - Get profile from Player
+              *         - For the Player in connected_players with the same profile, set its VoteState
+              *     - If no, check if !bet <number> has been written:
+              *         - Create new next Bet with <number>
+              *     
               * 
              */
             try

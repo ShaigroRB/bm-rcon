@@ -59,14 +59,18 @@ namespace BM_RCON.mods.betmode
               *     - Stop checking for vote in chat for next Bet
               *     - Set Players in Bet with connected_players
               *     - Decide if next Bet is accepted or not depending on VoteState of Players
-              *     - If accepted, set is_bet_next_flag_unlocked to true
-              *     - If not accepted, set is_bet_next_flag_unlocked to false and set next Bet to null
+              *     - If accepted, set is_bet_flag_unlocked to true
+              *     - If not accepted, set is_bet_flag_unlocked to false and set next Bet to null
               *     - Check if current Bet is won
               *     - If yes, for each Player in connected_players:
+              *         - Get the vices from Bet
               *         - Send request to update the player's vices
               *         - Update the Player's vices
               *     - Replace current Bet by next Bet
-              * - survival_flag_unlocked
+              * - survival_flag_unlocked:
+              *     - Check is_bet_flag_unlocked
+              *     - If true, for each enemies in Bet:
+              *         - Send request to spawn the enemy
               * - chat_message
               * 
              */

@@ -107,5 +107,19 @@ namespace BM_RCON.mods.betmode
             }
             return is_bet_won;
         }
+
+        public void UpdateDeadPlayer(Player player)
+        {
+            int nb_players = this.nb_players;
+            bool is_player_found = false;
+            for (int i = 0; !is_player_found && i < nb_players; i++)
+            {
+                if (this.players_in_bet[i].SameProfileAs(player))
+                {
+                    this.players_in_bet[i].IsAlive = false;
+                    is_player_found = true;
+                }
+            }
+        }
     }
 }

@@ -55,7 +55,17 @@ namespace BM_RCON.mods.betmode
               *     - Get profile and vice used
               *     - Search for the Player with the corresponding profile
               *     - Update its vices with vice used
-              * - survival_new_wave
+              * - survival_new_wave:
+              *     - Stop checking for vote in chat for next Bet
+              *     - Set Players in Bet with connected_players
+              *     - Decide if next Bet is accepted or not depending on VoteState of Players
+              *     - If accepted, set is_bet_next_flag_unlocked to true
+              *     - If not accepted, set is_bet_next_flag_unlocked to false and set next Bet to null
+              *     - Check if current Bet is won
+              *     - If yes, for each Player in connected_players:
+              *         - Send request to update the player's vices
+              *         - Update the Player's vices
+              *     - Replace current Bet by next Bet
               * - survival_flag_unlocked
               * - chat_message
               * 

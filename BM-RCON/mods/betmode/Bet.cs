@@ -121,5 +121,15 @@ namespace BM_RCON.mods.betmode
                 }
             }
         }
+
+        public int[] Enemies
+        {
+            get;
+        }
+
+        public int[] Vices
+        {
+            get;
+        }
     }
 }

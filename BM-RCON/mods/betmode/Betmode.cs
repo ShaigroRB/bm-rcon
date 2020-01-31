@@ -78,9 +78,7 @@ namespace BM_RCON.mods.betmode
               *         - Get profile from Player
               *         - For the Player in connected_players with the same profile, set its VoteState
               *     - If no, check if !bet <number> has been written:
-              *         - Create new next Bet with <number>
-              *     
-              * 
+              *         - Create new next Bet with <number> 
              */
             try
             {

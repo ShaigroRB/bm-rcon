@@ -57,16 +57,16 @@ namespace BM_RCON.mods.betmode
               *     - Update its vices with vice used
               * - survival_new_wave:
               *     - Stop checking for vote in chat for next Bet
-              *     - Set VoteState of all connected_players to NOTHING
+              *     - Set Vote of all connected_players to NOTHING
               *     - Set Players in Bet with connected_players
-              *     - Decide if next Bet is accepted or not depending on VoteState of Players
+              *     - Decide if next Bet is accepted or not depending on Vote of Players
               *     - If accepted, set is_bet_flag_unlocked to true
               *     - If not accepted, set is_bet_flag_unlocked to false and set next Bet to null
               *     - Check if current Bet is won
               *     - If yes, for each Player in connected_players:
               *         - Get the vices from Bet
-              *         - Send request to update the player's vices
               *         - Update the Player's vices
+              *         - Send request to update the player's vices
               *     - Replace current Bet by next Bet
               * - survival_flag_unlocked:
               *     - Check is_bet_flag_unlocked
@@ -76,8 +76,13 @@ namespace BM_RCON.mods.betmode
               *     - Check if next Bet exists
               *     - If yes, check if !vote <yes/no> has been written:
               *         - Get profile from Player
-              *         - For the Player in connected_players with the same profile, set its VoteState
-              *     - If no, check if !bet <number> has been written:
+              *         - For the Player in connected_players with the same profile, set its Vote
+              *         - Check if Players in connected_players all have a Vote to either YES or NO
+              *         - If yes, check if next Bet is valid:
+              *             - Set Vote of all connected_players to NOTHING
+              *             - Set Players in Bet with connected_players
+              *             - If valid, set is_bet_flag_unlocked to true
+              *             - If not valid, set is_bet_flag_unlocked to false and set next Bet to null
               *         - Create new next Bet with <number> 
              */
             try

@@ -80,18 +80,23 @@ namespace BM_RCON.mods.betmode
         public void Connected()
         {
             this.is_connected = true;
-            this.vote_state = VoteState.NOTHING;
+            this.vote = VoteState.NOTHING;
         }
 
         public void Disconnected()
         {
             this.is_connected = false;
-            this.vote_state = VoteState.OFFLINE;
+            this.vote = VoteState.OFFLINE;
         }
 
         public bool SameProfileAs(Player obj)
         {
             return this.profile.Equals(obj.Profile);
+        }
+
+        public bool SameProfileAs(string profile)
+        {
+            return this.profile.Equals(profile);
         }
     }
 }

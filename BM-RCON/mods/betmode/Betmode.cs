@@ -83,7 +83,7 @@ namespace BM_RCON.mods.betmode
               *             - Set Players in Bet with connected_players
               *             - If valid, set is_bet_flag_unlocked to true
               *             - If not valid, set is_bet_flag_unlocked to false and set next Bet to null
-              *         - Create new next Bet with <number> 
+              *     - If no, create new next Bet with <number> 
              */
             try
             {

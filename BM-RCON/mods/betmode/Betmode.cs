@@ -156,7 +156,7 @@ namespace BM_RCON.mods.betmode
                             {
                                 if (null_index == -1)
                                 {
-                                    Console.WriteLine("PROBLEM: more than 20 players in server possible.");
+                                    Console.WriteLine("PROBLEM: more than 20 players in server should be impossible.");
                                     ongoing_game = false;
                                     amout_of_games = 10;
                                 }
@@ -171,10 +171,6 @@ namespace BM_RCON.mods.betmode
                             {
                                 Player player = new Player((string)json_obj.PlayerName, profile);
                                 connected_players[null_index] = player;
-                            }
-                            if (null_index == 1)
-                            {
-                                Console.WriteLine("1 player already joined");
                             }
                             break;
                     }

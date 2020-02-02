@@ -8,14 +8,14 @@ namespace BM_RCON.mods.betmode
     class Player
     {
         string name;
-        string profile;
+        Profile profile;
         // type of vice is the index in the list
         int[] vices;
         bool is_connected;
         bool is_alive;
         VoteState vote;
 
-        public Player(string name, string profile)
+        public Player(string name, Profile profile)
         {
             this.name = name;
             this.profile = profile;
@@ -26,14 +26,20 @@ namespace BM_RCON.mods.betmode
             this.vote = VoteState.NOTHING;
         }
 
-        public string Profile
+        public Profile Profile
         {
-            get;
+            get
+            {
+                return this.profile;
+            }
         }
 
         public int[] Vices
         {
-            get;
+            get
+            {
+                return this.vices;
+            }
         }
 
         public bool IsConnected
@@ -64,7 +70,15 @@ namespace BM_RCON.mods.betmode
 
         public VoteState Vote
         {
-            get; set;
+            get
+            {
+                return this.vote;
+            }
+
+            set
+            {
+                this.vote = value;
+            }
         }
 
         public void ViceUsed(ViceID vice)
@@ -94,7 +108,7 @@ namespace BM_RCON.mods.betmode
             return this.profile.Equals(obj.Profile);
         }
 
-        public bool SameProfileAs(string profile)
+        public bool SameProfileAs(Profile profile)
         {
             return this.profile.Equals(profile);
         }

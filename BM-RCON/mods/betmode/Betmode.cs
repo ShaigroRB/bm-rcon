@@ -148,7 +148,7 @@ namespace BM_RCON.mods.betmode
                             break;
 
                         case lib.EventType.player_connect:
-                            Profile profile = createProfile(json_obj.Profile, json_obj.Store);
+                            Profile profile = createProfile((string)json_obj.Profile, (string)json_obj.Store);
                             int index = indexPlayerGivenProfile(disconnected_players, profile);
                             int null_index = indexFirstNull(connected_players);
                             // if player exists (already joined the ongoing game before)
@@ -169,12 +169,12 @@ namespace BM_RCON.mods.betmode
                             // if first time player joined the ongoing game
                             else
                             {
-                                Player player = new Player(json_obj.PlayerName, profile);
+                                Player player = new Player((string)json_obj.PlayerName, profile);
                                 connected_players[null_index] = player;
                             }
-                            if (null_index == 12)
+                            if (null_index == 1)
                             {
-                                Console.WriteLine("12 players already joined");
+                                Console.WriteLine("1 player already joined");
                             }
                             break;
                     }

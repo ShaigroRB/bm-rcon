@@ -12,14 +12,14 @@ namespace BM_RCON.mods.betmode
         const string addr = "127.0.0.1";
         const string passwd = "admin";
 
-        private static void sendRequest(lib.BM_RCON rcon, lib.RequestType requestType, string body)
+        private void sendRequest(lib.BM_RCON rcon, lib.RequestType requestType, string body)
         {
             Thread.Sleep(160);
             rcon.SendRequest(requestType, body);
             Console.WriteLine("");
         }
 
-        private static lib.RCON_Event receiveEvt(lib.BM_RCON rcon)
+        private lib.RCON_Event receiveEvt(lib.BM_RCON rcon)
         {
             lib.RCON_Event evt = rcon.ReceiveEvent();
             Console.WriteLine("");
@@ -103,43 +103,44 @@ namespace BM_RCON.mods.betmode
             lib.BM_RCON rcon = new lib.BM_RCON(addr, port, passwd);
             lib.RCON_Event latest_evt;
             bool ongoing_game;
+            lib.EventType latest_evt_type;
 
             Player[] connected_players = new Player[20];
             Player[] disconnected_players = new Player[200];
 
-
-
+            // start doing stuff
             int amout_of_games = 0;
+
+            rcon.Connect();
+
+            // enable mutators before anything else
+            sendRequest(rcon, lib.RequestType.command, "enablemutators");
+
             while (amout_of_games < 10)
             {
-                rcon.Connect();
 
                 ongoing_game = true;
                 while (ongoing_game)
                 {
                     latest_evt = receiveEvt(rcon);
+                    latest_evt_type = (lib.EventType)latest_evt.EventID;
 
-                    if (latest_evt.EventID == (short)lib.EventType.match_end)
+                    switch (latest_evt_type)
                     {
-                        latest_evt.Print();
-                        Console.WriteLine("End of game.");
-                        break;
-                    }
+                        case lib.EventType.match_end:
+                            Console.WriteLine("End of the game");
+                            ongoing_game = false;
+                            break;
 
-                    if (latest_evt.EventID == (short)lib.EventType.match_start)
-                    {
-                        Console.WriteLine("Start of the game.");
-                    }
-
-                    if (latest_evt.EventID == (short)lib.EventType.rcon_ping)
-                    {
-                        sendRequest(rcon, lib.RequestType.ping, "pong");
+                        case lib.EventType.rcon_ping:
+                            sendRequest(rcon, lib.RequestType.ping, "pong");
+                            break;
                     }
                 }
-
-                rcon.Disconnect();
                 amout_of_games++;
             }
+
+            rcon.Disconnect();
         }
     }
 }

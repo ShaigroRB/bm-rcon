@@ -24,5 +24,10 @@ namespace BM_RCON.mods.betmode
         {
             get;
         }
+
+        public bool Equals(Profile profile)
+        {
+            return (this.profileID == profile.ProfileID) && (this.storeID == profile.StoreID);
+        }
     }
 }

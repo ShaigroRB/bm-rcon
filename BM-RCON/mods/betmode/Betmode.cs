@@ -111,6 +111,11 @@ namespace BM_RCON.mods.betmode
             lib.EventType latest_evt_type;
             dynamic json_obj;
 
+            // current bet and next bet
+            Bet[] bets = new Bet[2];
+            int current_bet = 0;
+            int next_bet = 1;
+
             Player[] connected_players = new Player[20];
             Player[] disconnected_players = new Player[200];
 
@@ -180,7 +185,21 @@ namespace BM_RCON.mods.betmode
                         case lib.EventType.player_disconnect:
                             { 
                                 Profile profile_disconnect = createProfile(json_obj.Profile);
-                                int index = 0;
+                                int index = indexPlayerGivenProfile(connected_players, profile_disconnect);
+                                int null_index = indexFirstNull(disconnected_players);
+
+                                Player player = connected_players[index];
+
+                                player.Disconnected();
+                                player.IsAlive = false;
+
+                                if (bets[current_bet] != null)
+                                {
+                                    bets[current_bet].UpdateDeadPlayer(player);
+                                }
+
+                                disconnected_players[null_index] = connected_players[index];
+                                connected_players[index] = null;
                             }
                             break;
                     }

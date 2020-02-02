@@ -163,6 +163,7 @@ namespace BM_RCON.mods.betmode
                                     }
                                     else
                                     {
+                                        disconnected_players[index].Connected();
                                         connected_players[null_index] = disconnected_players[index];
                                         disconnected_players[index] = null;
                                     }

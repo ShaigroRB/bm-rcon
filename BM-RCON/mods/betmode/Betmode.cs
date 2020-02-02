@@ -224,5 +224,15 @@ namespace BM_RCON.mods.betmode
             }
             return index;
         }
+
+        private Profile createProfile(dynamic profile)
+        {
+            return createProfile(profile.ProfileID, profile.StoreID);
+        }
+
+        private Profile createProfile(int profileID, int storeID)
+        {
+            return new Profile(profileID, storeID);
+        }
     }
 }

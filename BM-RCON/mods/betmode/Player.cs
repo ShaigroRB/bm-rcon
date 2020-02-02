@@ -28,12 +28,18 @@ namespace BM_RCON.mods.betmode
 
         public Profile Profile
         {
-            get;
+            get
+            {
+                return this.profile;
+            }
         }
 
         public int[] Vices
         {
-            get;
+            get
+            {
+                return this.vices;
+            }
         }
 
         public bool IsConnected
@@ -64,7 +70,15 @@ namespace BM_RCON.mods.betmode
 
         public VoteState Vote
         {
-            get; set;
+            get
+            {
+                return this.vote;
+            }
+
+            set
+            {
+                this.vote = value;
+            }
         }
 
         public void ViceUsed(ViceID vice)

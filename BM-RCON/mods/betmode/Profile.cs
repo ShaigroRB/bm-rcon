@@ -17,12 +17,18 @@ namespace BM_RCON.mods.betmode
 
         public string ProfileID
         {
-            get;
+            get
+            {
+                return this.profileID;
+            }
         }
 
         public string StoreID
         {
-            get;
+            get
+            {
+                return this.storeID;
+            }
         }
 
         public bool Equals(Profile profile)

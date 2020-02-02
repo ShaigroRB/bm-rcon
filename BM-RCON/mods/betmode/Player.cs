@@ -94,7 +94,7 @@ namespace BM_RCON.mods.betmode
             return this.profile.Equals(obj.Profile);
         }
 
-        public bool SameProfileAs(string profile)
+        public bool SameProfileAs(Profile profile)
         {
             return this.profile.Equals(profile);
         }

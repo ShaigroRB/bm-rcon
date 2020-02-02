@@ -12,7 +12,7 @@ namespace BM_RCON.mods.betmode
         const string addr = "127.0.0.1";
         const string passwd = "admin";
 
-        private static void sendRequest(lib.BM_RCON rcon, RequestType requestType, string body)
+        private static void sendRequest(lib.BM_RCON rcon, lib.RequestType requestType, string body)
         {
             Thread.Sleep(160);
             rcon.SendRequest(requestType, body);
@@ -87,7 +87,28 @@ namespace BM_RCON.mods.betmode
              */
             try
             {
+                // init variables
+                lib.BM_RCON rcon = new lib.BM_RCON(addr, port, passwd);
+                lib.RCON_Event latest_evt;
+                bool ongoing_game;
 
+                Player[] connected_players = new Player[20];
+                Player[] disconnected_players = new Player[200];
+
+
+
+                int amout_of_games = 0;
+                while (amout_of_games < 10)
+                {
+
+                    ongoing_game = true;
+                    while (ongoing_game)
+                    {
+
+                    }
+
+                    amout_of_games++;
+                }
             }
             catch (Exception e)
             {

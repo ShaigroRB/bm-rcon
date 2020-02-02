@@ -87,12 +87,17 @@ namespace BM_RCON.mods.betmode
              */
             try
             {
+                Betmode betmode = new Betmode();
+                betmode.Start();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 Console.WriteLine("Something went wrong in the main.");
             }
+
+            // press 'Enter' to exit the console
+            Console.Read();
 
             return 0;
         }
@@ -104,6 +109,7 @@ namespace BM_RCON.mods.betmode
             lib.RCON_Event latest_evt;
             bool ongoing_game;
             lib.EventType latest_evt_type;
+            dynamic json_obj;
 
             Player[] connected_players = new Player[20];
             Player[] disconnected_players = new Player[200];
@@ -124,6 +130,7 @@ namespace BM_RCON.mods.betmode
                 {
                     latest_evt = receiveEvt(rcon);
                     latest_evt_type = (lib.EventType)latest_evt.EventID;
+                    json_obj = latest_evt.JsonAsObj;
 
                     switch (latest_evt_type)
                     {
@@ -139,12 +146,83 @@ namespace BM_RCON.mods.betmode
                         case lib.EventType.rcon_disconnect:
                             rcon.Connect();
                             break;
+
+                        case lib.EventType.player_connect:
+                            int index = indexPlayerGivenProfileStr(disconnected_players, json_obj.Profile);
+                            int null_index = indexFirstNull(connected_players);
+                            // if player exists (already joined the ongoing game before)
+                            if (index != -1)
+                            {
+                                if (null_index == -1)
+                                {
+                                    Console.WriteLine("PROBLEM: more than 20 players in server possible.");
+                                    ongoing_game = false;
+                                    amout_of_games = 10;
+                                }
+                                else
+                                {
+                                    connected_players[null_index] = disconnected_players[index];
+                                    disconnected_players[index] = null;
+                                }
+                            }
+                            // if first time player joined the ongoing game
+                            else
+                            {
+                                Player player = new Player(json_obj.PlayerName, json_obj.Profile);
+                                connected_players[null_index] = player;
+                            }
+                            if (null_index == 12)
+                            {
+                                Console.WriteLine("12 players already joined");
+                            }
+                            break;
                     }
+
                 }
                 amout_of_games++;
             }
 
             rcon.Disconnect();
+        }
+
+        private int indexPlayerGivenProfileStr(Player[] players, string profile)
+        {
+            /*
+             * Given a list of players and a profile as string,
+             * Return the index of the player corresponding to the profile if found,
+             * otherwise return -1
+             */
+            int index = -1;
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i] == null)
+                {
+                    break;
+                }
+                else
+                {
+                    if (players[i].SameProfileAs(profile))
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            return index;
+        }
+
+        private int indexFirstNull(Player[] list)
+        {
+            int index = -1;
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] == null)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
         }
     }
 }

@@ -6,28 +6,28 @@ namespace BM_RCON.mods.betmode
 {
     class Profile
     {
-        int profileID;
-        int storeID;
+        string profileID;
+        string storeID;
 
-        public Profile(int profileID, int storeID)
+        public Profile(string profileID, string storeID)
         {
             this.profileID = profileID;
             this.storeID = storeID;
         }
 
-        public int ProfileID
+        public string ProfileID
         {
             get;
         }
 
-        public int StoreID
+        public string StoreID
         {
             get;
         }
 
         public bool Equals(Profile profile)
         {
-            return (this.profileID == profile.ProfileID) && (this.storeID == profile.StoreID);
+            return (this.profileID.Equals(profile.ProfileID)) && (this.storeID.Equals(profile.StoreID));
         }
     }
 }

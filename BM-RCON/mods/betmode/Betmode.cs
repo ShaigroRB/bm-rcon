@@ -148,7 +148,7 @@ namespace BM_RCON.mods.betmode
                             break;
 
                         case lib.EventType.player_connect:
-                            Profile profile = createProfile(json_obj.Profile, json_obj.StoreID);
+                            Profile profile = createProfile(json_obj.Profile, json_obj.Store);
                             int index = indexPlayerGivenProfile(disconnected_players, profile);
                             int null_index = indexFirstNull(connected_players);
                             // if player exists (already joined the ongoing game before)
@@ -232,7 +232,7 @@ namespace BM_RCON.mods.betmode
             return createProfile(profile.ProfileID, profile.StoreID);
         }
 
-        private Profile createProfile(int profileID, int storeID)
+        private Profile createProfile(string profileID, string storeID)
         {
             return new Profile(profileID, storeID);
         }

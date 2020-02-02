@@ -135,6 +135,10 @@ namespace BM_RCON.mods.betmode
                         case lib.EventType.rcon_ping:
                             sendRequest(rcon, lib.RequestType.ping, "pong");
                             break;
+
+                        case lib.EventType.rcon_disconnect:
+                            rcon.Connect();
+                            break;
                     }
                 }
                 amout_of_games++;

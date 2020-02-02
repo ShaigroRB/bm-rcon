@@ -173,6 +173,7 @@ namespace BM_RCON.mods.betmode
                                 connected_players[null_index] = player;
                             }
                             break;
+
                     }
 
                 }
@@ -225,7 +226,7 @@ namespace BM_RCON.mods.betmode
 
         private Profile createProfile(dynamic profile)
         {
-            return createProfile(profile.ProfileID, profile.StoreID);
+            return createProfile((string)profile.ProfileID, (string)profile.StoreID);
         }
 
         private Profile createProfile(string profileID, string storeID)

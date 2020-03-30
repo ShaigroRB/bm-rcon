@@ -58,6 +58,8 @@
         zombrains_helicopter_arriving = 53,
         zombrains_helicopter_boarding = 54,
         zombrains_helicopter_player_boarded = 55,
-        zombrains_end = 56
+        zombrains_end = 56,
+        game_over = 57,
+        server_empty = 58
     }
 }

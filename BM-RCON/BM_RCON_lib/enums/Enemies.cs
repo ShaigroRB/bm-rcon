@@ -27,7 +27,12 @@
         // underscore at the end 'cause "operator" is a keyword (not available)
         operator_ = 22,
         cowboy = 23,
-        archer = 24
+        archer = 24,
+        zombie = 25,
+        zhost = 26,
+        zpitter = 27,
+        zomikaze = 28,
+        doctor = 29
     }
 
     enum SubtypeID

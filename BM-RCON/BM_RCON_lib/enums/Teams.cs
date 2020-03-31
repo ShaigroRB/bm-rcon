@@ -1,5 +1,8 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for teams ID
+    /// </summary>
     enum TeamID
     {
         player = 0,

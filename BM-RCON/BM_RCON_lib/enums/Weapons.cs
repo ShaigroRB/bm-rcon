@@ -1,5 +1,8 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for weapons ID (not all implemented yet)
+    /// </summary>
     enum WeaponID
     {
         // to update when weapons will be there

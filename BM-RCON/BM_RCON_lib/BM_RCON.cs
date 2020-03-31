@@ -17,6 +17,12 @@ namespace BM_RCON.BM_RCON_lib
         byte[] start_del_bytes;
         byte[] end_del_bytes;
 
+        /// <summary>
+        /// RCON client for Boring Man v2
+        /// </summary>
+        /// <param name="addr">IP Address of the server</param>
+        /// <param name="port">RCON port of the server</param>
+        /// <param name="password">RCON password of the server</param>
         public BM_RCON(string addr, int port, string password)
         {
             this.address = addr;
@@ -28,6 +34,10 @@ namespace BM_RCON.BM_RCON_lib
             this.end_del_bytes = uTF8.GetBytes("└");
         }
 
+        /// <summary>
+        /// Try to connect the RCON client to the server
+        /// </summary>
+        /// <returns>Returns 0 if successfully connected, otherwise returns 1</returns>
         public int Connect()
         {
             int status = 0;
@@ -61,12 +71,21 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        /// <summary>
+        /// Disconnect the RCON client from the server
+        /// </summary>
         public void Disconnect()
         {
             this.client.Close();
             Console.WriteLine("Client {0}:{1} disconnected.", this.address, this.port);
         }
 
+        /// <summary>
+        /// Create packet composed of bytes
+        /// </summary>
+        /// <param name="RequestType">Type of the request (see enum RequestType)</param>
+        /// <param name="body">Body of the request</param>
+        /// <returns>Returns the packet</returns>
         public byte[] CreatePacket(RequestType RequestType, string body)
         {
             /*
@@ -102,6 +121,11 @@ namespace BM_RCON.BM_RCON_lib
             return final_packet;
         }
 
+        /// <summary>
+        /// Parse a packet (array of bytes) and returns a RCON_Event object
+        /// </summary>
+        /// <param name="pckt_bytes">Packet as bytes</param>
+        /// <returns>Returns a RCON_Event object</returns>
         public RCON_Event ParsePacket(byte[] pckt_bytes)
         {
             /*
@@ -135,6 +159,11 @@ namespace BM_RCON.BM_RCON_lib
             return rcon_event;
         }
 
+        /// <summary>
+        /// Send a request to the server given a packet (bytes)
+        /// </summary>
+        /// <param name="req">The packet (request)</param>
+        /// <returns>Returns 0 if the request was successfully sent, otherwise returns 1</returns>
         public int SendRequest(byte[] req)
         {
             int status = 0;
@@ -156,6 +185,12 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        /// <summary>
+        /// Send a request to the server given a request type and a body
+        /// </summary>
+        /// <param name="req_type">The type of the request</param>
+        /// <param name="body">The body of the request</param>
+        /// <returns>Returns 0 if the request was successfully sent, otherwise returns 1</returns>
         public int SendRequest(RequestType req_type, string body)
         {
             byte[] pckt = CreatePacket(req_type, body);
@@ -169,6 +204,10 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        /// <summary>
+        /// Receive the next event from the server
+        /// </summary>
+        /// <returns>Returns a RCON_Event if successfully received the next event, otherwise returns null</returns>
         public RCON_Event ReceiveEvent()
         {
             RCON_Event rcon_evt = null;

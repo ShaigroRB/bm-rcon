@@ -1,5 +1,10 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for enemies ID
+    /// Some enemies might be added later.
+    /// The operator enemy is written "operator_" as it's a reserved keyword.
+    /// </summary>
     enum EnemyID
     {
         cannibal = 0,
@@ -35,6 +40,9 @@
         doctor = 29
     }
 
+    /// <summary>
+    /// Enum for subtypes ID of enemies 
+    /// </summary>
     enum SubtypeID
     {
         normal = 0,

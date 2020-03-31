@@ -1,7 +1,7 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
     /// <summary>
-    /// Enum for weapons ID
+    /// Enum for weapons ID (not all implemented yet)
     /// </summary>
     enum WeaponID
     {

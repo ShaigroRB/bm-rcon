@@ -24,13 +24,6 @@ namespace BM_RCON
             Console.WriteLine("");
         }
 
-        private static lib.RCON_Event receiveEvt(lib.BM_RCON rcon)
-        {
-            lib.RCON_Event evt = rcon.ReceiveEvent();
-            Console.WriteLine("");
-            return evt;
-        }
-
         static int Main()
         {
             try

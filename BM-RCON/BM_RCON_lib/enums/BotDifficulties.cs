@@ -2,6 +2,7 @@
 {
     /// <summary>
     /// Enum for bots' difficulty
+    /// The difference between AIMode and BotDifficulty enums is that there is a 'random' choice for BotDifficulty
     /// </summary>
     enum BotDifficulty
     {

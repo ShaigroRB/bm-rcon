@@ -1,5 +1,9 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for AI modes
+    /// The difference between AIMode and BotDifficulty enums is that there is a 'random' choice for BotDifficulty
+    /// </summary>
     enum AIMode
     {
         easy = 0,

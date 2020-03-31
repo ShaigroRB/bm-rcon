@@ -12,6 +12,12 @@ namespace BM_RCON.BM_RCON_lib
         string json_str;
         dynamic json_obj;
 
+        /// <summary>
+        /// Contains information on a RCON event
+        /// </summary>
+        /// <param name="json_size">Size of JSON (number of bytes)</param>
+        /// <param name="eventID">ID of the event (see enum EventType)</param>
+        /// <param name="json">The JSON given as string</param>
         public RCON_Event(short json_size, short eventID, string json)
         {
             // the json size takes into account the end delimiter which length is 3 bits

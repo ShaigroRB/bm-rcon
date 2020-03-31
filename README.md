@@ -13,9 +13,9 @@ You can find the different commands to send to the server **[here](https://githu
 Check *Program.cs* for a complete example on how to use the library.
 
 ## Todo
-- Tests (never enough)
-- Proper documentation
-- weapons id
+- Tests (maybe...)
+- ILogger with two basic loggers (FileLogger and ConsoleLogger)
+- Update enums for latest beta release
 
 ## Licenses
 This project is under the MIT license.  

@@ -185,6 +185,12 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        /// <summary>
+        /// Send a request to the server given a request type and a body
+        /// </summary>
+        /// <param name="req_type">The type of the request</param>
+        /// <param name="body">The body of the request</param>
+        /// <returns>Returns 0 if the request was successfully sent, otherwise returns 1</returns>
         public int SendRequest(RequestType req_type, string body)
         {
             byte[] pckt = CreatePacket(req_type, body);

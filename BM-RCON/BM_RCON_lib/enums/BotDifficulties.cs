@@ -1,5 +1,8 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for bots' difficulty
+    /// </summary>
     enum BotDifficulty
     {
         easy = 0,

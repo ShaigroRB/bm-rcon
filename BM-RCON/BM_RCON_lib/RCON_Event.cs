@@ -31,6 +31,9 @@ namespace BM_RCON.BM_RCON_lib
             this.json_obj = JObject.Parse(json);
         }
 
+        /// <summary>
+        /// Getter for the size of the JSON
+        /// </summary>
         public short JsonSize
         {
             get
@@ -39,6 +42,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Getter for the ID of the event
+        /// </summary>
         public short EventID
         {
             get
@@ -47,6 +53,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Getter for the JSON (as a string)
+        /// </summary>
         public string JsonAsString
         {
             get
@@ -55,6 +64,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Getter for the JSON (as an object)
+        /// </summary>
         public dynamic JsonAsObj
         {
             get

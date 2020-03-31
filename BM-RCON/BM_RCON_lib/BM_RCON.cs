@@ -17,6 +17,12 @@ namespace BM_RCON.BM_RCON_lib
         byte[] start_del_bytes;
         byte[] end_del_bytes;
 
+        /// <summary>
+        /// RCON client for Boring Man v2
+        /// </summary>
+        /// <param name="addr">IP Address of the server</param>
+        /// <param name="port">RCON port of the server</param>
+        /// <param name="password">RCON password of the server</param>
         public BM_RCON(string addr, int port, string password)
         {
             this.address = addr;

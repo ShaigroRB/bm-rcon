@@ -1,5 +1,8 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for vices ID
+    /// </summary>
     enum ViceID
     {
         lager = 0,

@@ -1,5 +1,9 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for event types
+    /// Some events might be added later.
+    /// </summary>
     enum EventType : short
     {
         server_startup = 0,

@@ -38,7 +38,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns 0 if successfully connected, otherwise returns 1</returns>
         public int Connect()
         {
-            int status = 0;
+            int status;
             try
             {
                 Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",

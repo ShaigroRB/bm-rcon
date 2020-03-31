@@ -35,7 +35,7 @@ namespace BM_RCON.BM_RCON_lib
         }
 
         /// <summary>
-        /// Try to connect to the server
+        /// Try to connect the RCON client to the server
         /// </summary>
         /// <returns>Returns 0 if successfully connected, otherwise returns 1</returns>
         public int Connect()
@@ -71,6 +71,9 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        /// <summary>
+        /// Disconnect the RCON client from the server
+        /// </summary>
         public void Disconnect()
         {
             this.client.Close();

@@ -121,6 +121,11 @@ namespace BM_RCON.BM_RCON_lib
             return final_packet;
         }
 
+        /// <summary>
+        /// Parse a packet (array of bytes) and returns a RCON_Event object
+        /// </summary>
+        /// <param name="pckt_bytes">Packet as bytes</param>
+        /// <returns>Returns a RCON_Event object</returns>
         public RCON_Event ParsePacket(byte[] pckt_bytes)
         {
             /*

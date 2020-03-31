@@ -80,6 +80,12 @@ namespace BM_RCON.BM_RCON_lib
             Console.WriteLine("Client {0}:{1} disconnected.", this.address, this.port);
         }
 
+        /// <summary>
+        /// Create packet composed of bytes
+        /// </summary>
+        /// <param name="RequestType">Type of the request (see enum RequestType)</param>
+        /// <param name="body">Body of the request</param>
+        /// <returns>Returns the packet</returns>
         public byte[] CreatePacket(RequestType RequestType, string body)
         {
             /*

@@ -1,5 +1,8 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Enum for request types
+    /// </summary>
     enum RequestType : short
     {
         login = 0,

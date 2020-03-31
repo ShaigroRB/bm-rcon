@@ -159,6 +159,11 @@ namespace BM_RCON.BM_RCON_lib
             return rcon_event;
         }
 
+        /// <summary>
+        /// Send a request to the server given a packet (bytes)
+        /// </summary>
+        /// <param name="req">The packet (request)</param>
+        /// <returns>Returns 0 if the request was successfully sent, otherwise returns 1</returns>
         public int SendRequest(byte[] req)
         {
             int status = 0;

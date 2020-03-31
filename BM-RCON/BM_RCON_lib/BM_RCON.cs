@@ -6,16 +6,16 @@ namespace BM_RCON.BM_RCON_lib
 {
     class BM_RCON
     {
-        string address;
-        int port;
-        string password;
+        readonly string address;
+        readonly int port;
+        readonly string password;
 
         // One client to rule them all
         TcpClient client;
 
         // delimiters
-        byte[] start_del_bytes;
-        byte[] end_del_bytes;
+        readonly byte[] start_del_bytes;
+        readonly byte[] end_del_bytes;
 
         /// <summary>
         /// RCON client for Boring Man v2

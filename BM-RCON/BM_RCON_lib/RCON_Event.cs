@@ -12,6 +12,12 @@ namespace BM_RCON.BM_RCON_lib
         string json_str;
         dynamic json_obj;
 
+        /// <summary>
+        /// Contains information on a RCON event
+        /// </summary>
+        /// <param name="json_size">Size of JSON (number of bytes)</param>
+        /// <param name="eventID">ID of the event (see enum EventType)</param>
+        /// <param name="json">The JSON given as string</param>
         public RCON_Event(short json_size, short eventID, string json)
         {
             // the json size takes into account the end delimiter which length is 3 bits
@@ -25,6 +31,9 @@ namespace BM_RCON.BM_RCON_lib
             this.json_obj = JObject.Parse(json);
         }
 
+        /// <summary>
+        /// Getter for the size of the JSON
+        /// </summary>
         public short JsonSize
         {
             get
@@ -33,6 +42,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Getter for the ID of the event
+        /// </summary>
         public short EventID
         {
             get
@@ -41,6 +53,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Getter for the JSON (as a string)
+        /// </summary>
         public string JsonAsString
         {
             get
@@ -49,6 +64,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Getter for the JSON (as an object)
+        /// </summary>
         public dynamic JsonAsObj
         {
             get
@@ -57,6 +75,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Print in the console the JSON size, the event ID and the JSON
+        /// </summary>
         public void Print()
         {
             Console.WriteLine("JSON size: {0}", JsonSize.ToString());

@@ -75,6 +75,9 @@ namespace BM_RCON.BM_RCON_lib
             }
         }
 
+        /// <summary>
+        /// Print in the console the JSON size, the event ID and the JSON
+        /// </summary>
         public void Print()
         {
             Console.WriteLine("JSON size: {0}", JsonSize.ToString());

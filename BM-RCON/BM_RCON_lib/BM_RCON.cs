@@ -204,6 +204,10 @@ namespace BM_RCON.BM_RCON_lib
             return status;
         }
 
+        /// <summary>
+        /// Receive the next event from the server
+        /// </summary>
+        /// <returns>Returns a RCON_Event if successfully received the next event, otherwise returns null</returns>
         public RCON_Event ReceiveEvent()
         {
             RCON_Event rcon_evt = null;

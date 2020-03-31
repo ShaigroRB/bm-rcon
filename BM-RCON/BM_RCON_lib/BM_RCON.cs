@@ -34,6 +34,10 @@ namespace BM_RCON.BM_RCON_lib
             this.end_del_bytes = uTF8.GetBytes("└");
         }
 
+        /// <summary>
+        /// Try to connect to the server
+        /// </summary>
+        /// <returns>Returns 0 if successfully connected, otherwise returns 1</returns>
         public int Connect()
         {
             int status = 0;

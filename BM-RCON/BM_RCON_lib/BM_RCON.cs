@@ -6,16 +6,15 @@ namespace BM_RCON.BM_RCON_lib
 {
     class BM_RCON
     {
-        string address;
-        int port;
-        string password;
+        readonly string address;
+        readonly int port;
+        readonly string password;
 
         // One client to rule them all
         TcpClient client;
 
         // delimiters
-        byte[] start_del_bytes;
-        byte[] end_del_bytes;
+        readonly byte[] start_del_bytes;
 
         /// <summary>
         /// RCON client for Boring Man v2
@@ -31,7 +30,6 @@ namespace BM_RCON.BM_RCON_lib
 
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");
-            this.end_del_bytes = uTF8.GetBytes("└");
         }
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns 0 if successfully connected, otherwise returns 1</returns>
         public int Connect()
         {
-            int status = 0;
+            int status;
             try
             {
                 Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",

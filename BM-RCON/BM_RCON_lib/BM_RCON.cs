@@ -15,7 +15,6 @@ namespace BM_RCON.BM_RCON_lib
 
         // delimiters
         readonly byte[] start_del_bytes;
-        readonly byte[] end_del_bytes;
 
         /// <summary>
         /// RCON client for Boring Man v2
@@ -31,7 +30,6 @@ namespace BM_RCON.BM_RCON_lib
 
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");
-            this.end_del_bytes = uTF8.GetBytes("└");
         }
 
         /// <summary>

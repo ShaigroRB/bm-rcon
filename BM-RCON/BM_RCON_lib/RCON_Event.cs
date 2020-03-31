@@ -7,11 +7,6 @@ namespace BM_RCON.BM_RCON_lib
 {
     class RCON_Event
     {
-        short json_size;
-        short eventID;
-        string json_str;
-        dynamic json_obj;
-
         /// <summary>
         /// Contains information on a RCON event
         /// </summary>
@@ -22,58 +17,34 @@ namespace BM_RCON.BM_RCON_lib
         {
             // the json size takes into account the end delimiter which length is 3 bits
             // real size of the json is json - 3
-            this.json_size = json_size;
+            this.JsonSize = json_size;
             // the event ID is in also in the json, if needed
-            this.eventID = eventID;
+            this.EventID = eventID;
             // json as string
-            this.json_str = json;
+            this.JsonAsString = json;
             // json as object
-            this.json_obj = JObject.Parse(json);
+            this.JsonAsObj = JObject.Parse(json);
         }
 
         /// <summary>
         /// Getter for the size of the JSON
         /// </summary>
-        public short JsonSize
-        {
-            get
-            {
-                return this.json_size;
-            }
-        }
+        public short JsonSize { get; }
 
         /// <summary>
         /// Getter for the ID of the event
         /// </summary>
-        public short EventID
-        {
-            get
-            {
-                return this.eventID;
-            }
-        }
+        public short EventID { get; }
 
         /// <summary>
         /// Getter for the JSON (as a string)
         /// </summary>
-        public string JsonAsString
-        {
-            get
-            {
-                return this.json_str;
-            }
-        }
+        public string JsonAsString { get; }
 
         /// <summary>
         /// Getter for the JSON (as an object)
         /// </summary>
-        public dynamic JsonAsObj
-        {
-            get
-            {
-                return this.json_obj;
-            }
-        }
+        public dynamic JsonAsObj { get; }
 
         /// <summary>
         /// Print in the console the JSON size, the event ID and the JSON

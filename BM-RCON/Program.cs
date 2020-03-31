@@ -24,14 +24,7 @@ namespace BM_RCON
             Console.WriteLine("");
         }
 
-        private static lib.RCON_Event receiveEvt(lib.BM_RCON rcon)
-        {
-            lib.RCON_Event evt = rcon.ReceiveEvent();
-            Console.WriteLine("");
-            return evt;
-        }
-
-        static int Main(string[] args)
+        static int Main()
         {
             try
             {
@@ -51,7 +44,7 @@ namespace BM_RCON
                 Console.WriteLine("");
 
                 // enable mutators on server if not enabled
-                // sendRequest(rcon_obj, RequestType.command, "enablemutators");
+                sendRequest(rcon_obj, RequestType.command, "enablemutators");
 
                 lib.RCON_Event evt;
                 while (true)
@@ -64,7 +57,7 @@ namespace BM_RCON
                     if (evt.EventID == (short)lib.EventType.chat_message)
                     {
                         // get the message
-                        String msg = evt.JsonAsObj.Message.ToString();
+                        string msg = evt.JsonAsObj.Message.ToString();
 
                         // check if "!bigtext" is in the message
                         int index = msg.IndexOf(bigtext_cmd);
@@ -95,8 +88,6 @@ namespace BM_RCON
 
                 // disconnect the rcon client
                 rcon_obj.Disconnect();
-
-
             }
             // if something goes wrong, you will end up here
             catch (Exception e)

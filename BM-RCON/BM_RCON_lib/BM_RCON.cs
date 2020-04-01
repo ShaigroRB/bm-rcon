@@ -176,13 +176,12 @@ namespace BM_RCON.BM_RCON_lib
                 stream.WriteTimeout = 7000;
                 stream.Write(req, 0, req.Length);
 
-                Console.WriteLine("Request ({0}) sent.",
-                                    Encoding.UTF8.GetString(req));
+                logger.LogDebug($"Request ({Encoding.UTF8.GetString(req)}) sent.");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to send a request.");
-                Console.WriteLine("Error: {0}", e.ToString());
+                logger.LogError("Failed to send a request.");
+                logger.LogError($"Error: {e.ToString()}");
                 status = 1;
             }
             return status;

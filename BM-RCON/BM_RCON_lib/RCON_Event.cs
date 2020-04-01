@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// Contains information on a RCON event
+    /// </summary>
     class RCON_Event
     {
         /// <summary>

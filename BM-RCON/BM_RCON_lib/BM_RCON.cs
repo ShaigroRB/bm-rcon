@@ -4,6 +4,9 @@ using System.Net.Sockets;
 
 namespace BM_RCON.BM_RCON_lib
 {
+    /// <summary>
+    /// RCON client for Boring Man v2
+    /// </summary>
     class BM_RCON
     {
         readonly string address;

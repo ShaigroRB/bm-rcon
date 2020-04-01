@@ -51,5 +51,11 @@ namespace BM_RCON.BM_RCON_lib
         /// </summary>
         /// <returns>Returns current state of debug logging</returns>
         bool ToggleDebug();
+
+        /// <summary>
+        /// State of debug logging
+        /// </summary>
+        /// <returns>Returns current state of debug logging</returns>
+        bool IsDebugEnabled();
     }
 }

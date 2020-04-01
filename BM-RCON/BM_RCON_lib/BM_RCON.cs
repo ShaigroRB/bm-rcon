@@ -12,6 +12,7 @@ namespace BM_RCON.BM_RCON_lib
         readonly string address;
         readonly int port;
         readonly string password;
+        private readonly ILogger logger;
 
         // One client to rule them all
         TcpClient client;
@@ -25,11 +26,13 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="addr">IP Address of the server</param>
         /// <param name="port">RCON port of the server</param>
         /// <param name="password">RCON password of the server</param>
-        public BM_RCON(string addr, int port, string password)
+        /// <param name="logger">The logger used</param>
+        public BM_RCON(string addr, int port, string password, ILogger logger)
         {
             this.address = addr;
             this.port = port;
             this.password = password;
+            this.logger = logger;
 
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");
@@ -44,8 +47,7 @@ namespace BM_RCON.BM_RCON_lib
             int status;
             try
             {
-                Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
-                                    this.address, this.port, this.password);
+                logger.LogInfo($"Connecting to {address}:{port} using '{password}' as password...");
 
                 // no method to reconnect, let's instanciate one each time...
                 this.client = new TcpClient(this.address, this.port);
@@ -56,17 +58,17 @@ namespace BM_RCON.BM_RCON_lib
                 status = SendRequest(RequestType.login, this.password);
                 if (status == 1)
                 {
-                    Console.WriteLine("Failed to connect.");
+                    logger.LogWarning("Failed to connect.");
                 }
                 else
                 {
-                    Console.WriteLine("Connection successful.");
+                    logger.LogInfo("Connection successful.");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to connect.");
-                Console.WriteLine("Error: {0}", e.ToString());
+                logger.LogError("Failed to connect.");
+                logger.LogError($"Error: {e.ToString()}");
                 status = 1;
             }
             return status;
@@ -78,7 +80,7 @@ namespace BM_RCON.BM_RCON_lib
         public void Disconnect()
         {
             this.client.Close();
-            Console.WriteLine("Client {0}:{1} disconnected.", this.address, this.port);
+            logger.LogInfo($"Client {address}:{port} disconnected.");
         }
 
         /// <summary>
@@ -155,7 +157,7 @@ namespace BM_RCON.BM_RCON_lib
             // get json as string from bytes and remove the end delimiter
             string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
 
-            RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json);
+            RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json, logger);
 
             return rcon_event;
         }
@@ -174,13 +176,12 @@ namespace BM_RCON.BM_RCON_lib
                 stream.WriteTimeout = 7000;
                 stream.Write(req, 0, req.Length);
 
-                Console.WriteLine("Request ({0}) sent.",
-                                    Encoding.UTF8.GetString(req));
+                logger.LogDebug($"Request ({Encoding.UTF8.GetString(req)}) sent.");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to send a request.");
-                Console.WriteLine("Error: {0}", e.ToString());
+                logger.LogError("Failed to send a request.");
+                logger.LogError($"Error: {e.ToString()}");
                 status = 1;
             }
             return status;
@@ -198,9 +199,7 @@ namespace BM_RCON.BM_RCON_lib
             int status = SendRequest(pckt);
             if (status == 1)
             {
-                Console.Write("Failed to send request of type {0} and of body {1}",
-                                req_type.ToString(),
-                                body);
+                logger.LogWarning($"Failed to send request of type {req_type.ToString()} and of body {body}");
             }
             return status;
         }
@@ -226,13 +225,13 @@ namespace BM_RCON.BM_RCON_lib
 
                     rcon_evt = ParsePacket(packet_received);
 
-                    Console.WriteLine("Event ({0}) received.", rcon_evt.EventID);
+                    logger.LogDebug($"Event ({rcon_evt.EventID}) received.");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to receive event.");
-                Console.WriteLine("Error: {0}", e.ToString());
+                logger.LogError("Failed to receive event.");
+                logger.LogError($"Error: {e.ToString()}");
             }
 
             return rcon_evt;

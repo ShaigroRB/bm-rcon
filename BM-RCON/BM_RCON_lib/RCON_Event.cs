@@ -59,9 +59,9 @@ namespace BM_RCON.BM_RCON_lib
         /// </summary>
         public void Print()
         {
-            Console.WriteLine("JSON size: {0}", JsonSize.ToString());
-            Console.WriteLine("Event ID: {0}", EventID.ToString());
-            Console.WriteLine("JSON: {0}", JsonAsString);
+            logger.LogInfo("JSON size: " + JsonSize.ToString());
+            logger.LogInfo("Event ID: " + EventID.ToString());
+            logger.LogInfo("JSON: " + JsonAsString);
         }
     }
 }

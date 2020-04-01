@@ -7,7 +7,7 @@ namespace BM_RCON.BM_RCON_lib
     /// </summary>
     class ConsoleLogger : ILogger
     {
-        private bool isDebug;
+        private bool isDebug = true;
 
         public void DisableDebug()
         {
@@ -26,7 +26,10 @@ namespace BM_RCON.BM_RCON_lib
 
         public void LogDebug(string msg)
         {
-            Console.WriteLine("[DEBUG]: {0}", msg);
+            if (isDebug)
+            {
+                Console.WriteLine("[DEBUG]: {0}", msg);
+            }
         }
 
         public void LogError(string msg)

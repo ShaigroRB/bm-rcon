@@ -10,13 +10,16 @@ namespace BM_RCON.BM_RCON_lib
     /// </summary>
     class RCON_Event
     {
+        private readonly ILogger logger;
+
         /// <summary>
         /// Contains information on a RCON event
         /// </summary>
         /// <param name="json_size">Size of JSON (number of bytes)</param>
         /// <param name="eventID">ID of the event (see enum EventType)</param>
         /// <param name="json">The JSON given as string</param>
-        public RCON_Event(short json_size, short eventID, string json)
+        /// <param name="logger">The logger used</param>
+        public RCON_Event(short json_size, short eventID, string json, ILogger logger)
         {
             // the json size takes into account the end delimiter which length is 3 bits
             // real size of the json is json - 3
@@ -27,6 +30,8 @@ namespace BM_RCON.BM_RCON_lib
             this.JsonAsString = json;
             // json as object
             this.JsonAsObj = JObject.Parse(json);
+            // logger used for Print method
+            this.logger = logger;
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace BM_RCON.BM_RCON_lib
         public dynamic JsonAsObj { get; }
 
         /// <summary>
-        /// Print in the console the JSON size, the event ID and the JSON
+        /// Use the logger to output the JSON size, the event ID and the JSON
         /// </summary>
         public void Print()
         {

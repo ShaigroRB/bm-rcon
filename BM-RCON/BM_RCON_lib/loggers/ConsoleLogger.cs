@@ -7,6 +7,28 @@ namespace BM_RCON.BM_RCON_lib
     /// </summary>
     class ConsoleLogger : ILogger
     {
+        private bool isDebug;
+
+        public ConsoleLogger(bool isDebug = true)
+        {
+            this.isDebug = isDebug;
+        }
+
+        public void DisableDebug()
+        {
+            isDebug = false;
+        }
+
+        public void EnableDebug()
+        {
+            isDebug = true;
+        }
+
+        public bool IsDebugEnabled()
+        {
+            return isDebug;
+        }
+
         public void Log(string msg)
         {
             Console.WriteLine(msg);
@@ -14,7 +36,10 @@ namespace BM_RCON.BM_RCON_lib
 
         public void LogDebug(string msg)
         {
-            Console.WriteLine("[DEBUG]: {0}", msg);
+            if (isDebug)
+            {
+                Console.WriteLine("[DEBUG]: {0}", msg);
+            }
         }
 
         public void LogError(string msg)
@@ -30,6 +55,12 @@ namespace BM_RCON.BM_RCON_lib
         public void LogWarning(string msg)
         {
             Console.WriteLine("[WARNING]: {0}", msg);
+        }
+
+        public bool ToggleDebug()
+        {
+            isDebug = !isDebug;
+            return isDebug;
         }
     }
 }

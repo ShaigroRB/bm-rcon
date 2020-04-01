@@ -19,7 +19,7 @@ namespace BM_RCON.BM_RCON_lib
         void LogInfo(string msg);
 
         /// <summary>
-        /// Debug logging
+        /// Debug logging (only if debug is enabled)
         /// </summary>
         /// <param name="msg">Message to log</param>
         void LogDebug(string msg);
@@ -35,5 +35,27 @@ namespace BM_RCON.BM_RCON_lib
         /// </summary>
         /// <param name="msg">Message to log</param>
         void LogWarning(string msg);
+
+        /// <summary>
+        /// Enable debug logging
+        /// </summary>
+        void EnableDebug();
+
+        /// <summary>
+        /// Disable debug logging
+        /// </summary>
+        void DisableDebug();
+
+        /// <summary>
+        /// Toggle debug logging
+        /// </summary>
+        /// <returns>Returns current state of debug logging</returns>
+        bool ToggleDebug();
+
+        /// <summary>
+        /// State of debug logging
+        /// </summary>
+        /// <returns>Returns current state of debug logging</returns>
+        bool IsDebugEnabled();
     }
 }

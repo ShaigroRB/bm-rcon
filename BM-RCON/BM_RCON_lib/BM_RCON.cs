@@ -12,6 +12,7 @@ namespace BM_RCON.BM_RCON_lib
         readonly string address;
         readonly int port;
         readonly string password;
+        private readonly ILogger logger;
 
         // One client to rule them all
         TcpClient client;
@@ -25,11 +26,13 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="addr">IP Address of the server</param>
         /// <param name="port">RCON port of the server</param>
         /// <param name="password">RCON password of the server</param>
-        public BM_RCON(string addr, int port, string password)
+        /// <param name="logger">The logger used</param>
+        public BM_RCON(string addr, int port, string password, ILogger logger)
         {
             this.address = addr;
             this.port = port;
             this.password = password;
+            this.logger = logger;
 
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");

@@ -19,7 +19,7 @@ namespace BM_RCON.BM_RCON_lib
         void LogInfo(string msg);
 
         /// <summary>
-        /// Debug logging
+        /// Debug logging (only if debug is enabled)
         /// </summary>
         /// <param name="msg">Message to log</param>
         void LogDebug(string msg);

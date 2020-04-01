@@ -80,7 +80,7 @@ namespace BM_RCON.BM_RCON_lib
         public void Disconnect()
         {
             this.client.Close();
-            Console.WriteLine("Client {0}:{1} disconnected.", this.address, this.port);
+            logger.LogInfo($"Client {address}:{port} disconnected.");
         }
 
         /// <summary>

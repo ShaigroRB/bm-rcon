@@ -157,7 +157,7 @@ namespace BM_RCON.BM_RCON_lib
             // get json as string from bytes and remove the end delimiter
             string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
 
-            RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json);
+            RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json, logger);
 
             return rcon_event;
         }

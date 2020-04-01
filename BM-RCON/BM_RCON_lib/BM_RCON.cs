@@ -225,13 +225,13 @@ namespace BM_RCON.BM_RCON_lib
 
                     rcon_evt = ParsePacket(packet_received);
 
-                    Console.WriteLine("Event ({0}) received.", rcon_evt.EventID);
+                    logger.LogDebug($"Event ({rcon_evt.EventID}) received.");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to receive event.");
-                Console.WriteLine("Error: {0}", e.ToString());
+                logger.LogError("Failed to receive event.");
+                logger.LogError($"Error: {e.ToString()}");
             }
 
             return rcon_evt;

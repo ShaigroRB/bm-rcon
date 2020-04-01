@@ -47,8 +47,7 @@ namespace BM_RCON.BM_RCON_lib
             int status;
             try
             {
-                Console.WriteLine("Connecting to {0}:{1} using '{2}' as password...",
-                                    this.address, this.port, this.password);
+                logger.LogInfo($"Connecting to {address}:{port} using '{password}' as password...");
 
                 // no method to reconnect, let's instanciate one each time...
                 this.client = new TcpClient(this.address, this.port);
@@ -59,17 +58,17 @@ namespace BM_RCON.BM_RCON_lib
                 status = SendRequest(RequestType.login, this.password);
                 if (status == 1)
                 {
-                    Console.WriteLine("Failed to connect.");
+                    logger.LogWarning("Failed to connect.");
                 }
                 else
                 {
-                    Console.WriteLine("Connection successful.");
+                    logger.LogInfo("Connection successful.");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to connect.");
-                Console.WriteLine("Error: {0}", e.ToString());
+                logger.LogError("Failed to connect.");
+                logger.LogError($"Error: {e.ToString()}");
                 status = 1;
             }
             return status;

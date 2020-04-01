@@ -199,9 +199,7 @@ namespace BM_RCON.BM_RCON_lib
             int status = SendRequest(pckt);
             if (status == 1)
             {
-                Console.Write("Failed to send request of type {0} and of body {1}",
-                                req_type.ToString(),
-                                body);
+                logger.LogWarning($"Failed to send request of type {req_type.ToString()} and of body {body}");
             }
             return status;
         }

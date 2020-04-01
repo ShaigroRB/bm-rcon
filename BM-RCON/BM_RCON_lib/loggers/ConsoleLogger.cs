@@ -7,7 +7,12 @@ namespace BM_RCON.BM_RCON_lib
     /// </summary>
     class ConsoleLogger : ILogger
     {
-        private bool isDebug = true;
+        private bool isDebug;
+
+        public ConsoleLogger(bool isDebug = true)
+        {
+            this.isDebug = isDebug;
+        }
 
         public void DisableDebug()
         {

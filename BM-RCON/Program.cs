@@ -26,6 +26,8 @@ namespace BM_RCON
 
         static int Main()
         {
+            // use a ConsoleLogger as our logger
+            lib.ILogger logger = new lib.ConsoleLogger();
             try
             {
                 /*
@@ -37,11 +39,12 @@ namespace BM_RCON
                 */
                 string body = passwd;
                 string bigtext_cmd = "!bigtext";
-                // init rcon object with address, port and password
-                lib.BM_RCON rcon_obj = new lib.BM_RCON(addr, port, body);
+
+                // init rcon object with address, port, password and logger
+                lib.BM_RCON rcon_obj = new lib.BM_RCON(addr, port, body, logger);
                 // connect the rcon client to addr:port with body
                 rcon_obj.Connect();
-                Console.WriteLine("");
+                logger.Log("");
 
                 // enable mutators on server if not enabled
                 sendRequest(rcon_obj, RequestType.command, "enablemutators");
@@ -51,7 +54,7 @@ namespace BM_RCON
                 {
                     // receive the latest event
                     evt = rcon_obj.ReceiveEvent();
-                    Console.WriteLine("");
+                    logger.Log("");
 
                     // check if somebody type something in the chat
                     if (evt.EventID == (short)lib.EventType.chat_message)
@@ -92,8 +95,8 @@ namespace BM_RCON
             // if something goes wrong, you will end up here
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                Console.WriteLine("Something went wrong in the main.");
+                logger.LogError(e.ToString());
+                logger.LogError("Something went wrong in the main.");
             }
 
             // press 'Enter' to exit the console

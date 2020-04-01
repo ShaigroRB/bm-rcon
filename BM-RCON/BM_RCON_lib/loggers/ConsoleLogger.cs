@@ -24,6 +24,11 @@ namespace BM_RCON.BM_RCON_lib
             isDebug = true;
         }
 
+        public bool IsDebugEnabled()
+        {
+            return isDebug;
+        }
+
         public void Log(string msg)
         {
             Console.WriteLine(msg);

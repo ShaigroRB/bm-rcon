@@ -49,4 +49,34 @@
         super_antacids = 41,
         indigos_reserve = 42
     }
+
+    static class ViceExtension
+    {
+        /// <summary>
+        /// Extension method to get the string associated to a Vice
+        /// </summary>
+        /// <param name="vice">The vice</param>
+        /// <returns>The vice as a readable string</returns>
+        public static string GetString(this Vice vice)
+        {
+            string[] vices = {
+                "Lager", "Cider", "Ale",
+                "Moonshine", "Red Wine", "Whiskey",
+                "Martini", "Jägerbomb", "Tequila",
+                "Joint", "Stout", "Margarita",
+                "Gin & Tonic", "Bloody Mary", "Screwdriver",
+                "Saké", "Mead", "White Wine",
+                "Cigar", "Varian Cigar", "Porter",
+                "Energy Drink", "Painkillers", "Mojito",
+                "Bourbon & Cola", "Beer", "Spliff",
+                "Stimulants", "Absinthe", "Rum",
+                "Champagne", "Vape Pen", "Sherry",
+                "Espresso", "Water", "Rubbing Alcohol",
+                "Hot Wings", "Antacids", "Smokes",
+                "Vodka", "Maria", "Super Antacids",
+                "Indigo's Reserve"
+            };
+            return vices[(int)vice];
+        }
+    }
 }

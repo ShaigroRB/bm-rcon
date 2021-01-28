@@ -7,7 +7,7 @@ namespace BM_RCON.BM_RCON_lib
     /// <summary>
     /// RCON client for Boring Man v2
     /// </summary>
-    class BM_RCON
+    class RCON_Client
     {
         readonly string address;
         readonly int port;
@@ -27,7 +27,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="port">RCON port of the server</param>
         /// <param name="password">RCON password of the server</param>
         /// <param name="logger">The logger used</param>
-        public BM_RCON(string addr, int port, string password, ILogger logger)
+        public RCON_Client(string addr, int port, string password, ILogger logger)
         {
             this.address = addr;
             this.port = port;

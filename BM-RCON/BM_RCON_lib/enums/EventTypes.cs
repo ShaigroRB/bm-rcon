@@ -1,8 +1,7 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
     /// <summary>
-    /// Enum for event types
-    /// Some events might be added later.
+    /// Enum for event types (cf <see href="https://github.com/Spasman/rcon_example#rcon-events-and-their-json-data">Spasman's docs</see>)
     /// </summary>
     enum EventType : short
     {
@@ -37,7 +36,7 @@
         match_overtime = 28,
         match_start = 29,
         survival_new_wave = 30,
-        survival_flag_unlocked = 31,
+        survival_wave_begins = 31,
         survival_buy_chest = 32,
         log_message = 33,
         request_data = 34,
@@ -64,6 +63,13 @@
         zombrains_helicopter_player_boarded = 55,
         zombrains_end = 56,
         game_over = 57,
-        server_empty = 58
+        server_empty = 58,
+        weaponsdeal_rankchange = 59,
+        takeover_flagcapture = 60,
+        takeover_flagscreated = 61,
+        player_loadout = 62,
+        survival_bomb_defused = 63,
+        survival_bomb_exploded = 64,
+        survival_bomb_rearmed = 65
     }
 }

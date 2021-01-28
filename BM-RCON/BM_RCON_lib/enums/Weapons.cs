@@ -44,7 +44,7 @@
         machine_gun = 36,
         // nothing = 37,
         grenade_launcher = 38,
-        heavy_grenade_launcher = 39,
+        heavy_gl = 39,
         // nothing = 40,
         rocket_launcher = 41,
         light_rocket = 42,
@@ -85,5 +85,47 @@
         kunai = 77,
         jetpack = 78,
         boomerang = 79
+    }
+
+    static class WeaponExtension
+    {
+        /// <summary>
+        /// Extension method to get the string associated to a Weapon
+        /// </summary>
+        /// <param name="weapon">The weapon</param>
+        /// <returns>The weapon as a readable string</returns>
+        public static string GetString(this Weapon weapon)
+        {
+            string[] weapons = {
+                "Fists", "", "Pistol",
+                "Silenced Pistol", "Underwater Pistol", "Revolver",
+                "Burst Pistol", "Compact Pistol", "Handcannon",
+                "Uzi", "Compact Uzi", "Fire Uzi",
+                "Light SMG", "SMG", "Power SMG",
+                "Power SMG", "", "Sawn-Off",
+                "Pump Action", "Double Barrel", "Trench Gun",
+                "", "Light AR", "Assault Rifle", "Keymaster",
+                "Heal Rifle", "Underwater Rifle", "Musket",
+                "Power Rifle", "Long Rifle", "Scoped Rifle",
+                "Lever Action", "Plinger", "Sniper Rifle",
+                "Bolt Action", "", "",
+                "Machine Gun", "", "Grenade Launcher",
+                "Heavy GL", "", "Rocket Launcher",
+                "Light Rockets", "", "",
+                "Acid Gun", "", "Muleslapper",
+                "", "Bow", "Crossbow",
+                "Grapplehook", "Knife", "Sword",
+                "Wrench", "", "Magic",
+                "Railgun", "", "",
+                "", "Drone", "Frag",
+                "Potato Masher", "EMP", "Molotov",
+                "Nitrogen Mine", "Heal Grenade", "Gas Grenade",
+                "Flashbang", "Muleslapper Sentry", "Tomahawk",
+                "Suicide Vest", "Skateboard", "Pineapple",
+                "Scuba Gear", "Dynamite", "Kunai",
+                "Jetpack", "Boomerang"
+            };
+            return weapons[(int)weapon];
+        }
     }
 }

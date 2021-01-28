@@ -3,9 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-// alias for namespace
-using lib = BM_RCON.BM_RCON_lib;
-using RequestType = BM_RCON.BM_RCON_lib.RequestType;
+using BM_RCON.BM_RCON_lib;
 
 
 namespace BM_RCON
@@ -17,7 +15,7 @@ namespace BM_RCON
         const string addr = "127.0.0.1";
         const string passwd = "admin";
 
-        private static void sendRequest(lib.BM_RCON rcon, RequestType requestType, string body)
+        private static void sendRequest(RCON_Client rcon, RequestType requestType, string body)
         {
             Thread.Sleep(160);
             rcon.SendRequest(requestType, body);
@@ -25,9 +23,11 @@ namespace BM_RCON
         }
 
         static int Main()
-        {
+        {            
             // use a ConsoleLogger as our logger
-            lib.ILogger logger = new lib.ConsoleLogger();
+            ILogger logger = new ConsoleLogger();
+            BotDifficulty difficulty = BotDifficulty.normal;
+            logger.LogWarning(difficulty.GetString());
             try
             {
                 /*
@@ -41,7 +41,7 @@ namespace BM_RCON
                 string bigtext_cmd = "!bigtext";
 
                 // init rcon object with address, port, password and logger
-                lib.BM_RCON rcon_obj = new lib.BM_RCON(addr, port, body, logger);
+                RCON_Client rcon_obj = new RCON_Client(addr, port, body, logger);
                 // connect the rcon client to addr:port with body
                 rcon_obj.Connect();
                 logger.Log("");
@@ -49,7 +49,7 @@ namespace BM_RCON
                 // enable mutators on server if not enabled
                 sendRequest(rcon_obj, RequestType.command, "enablemutators");
 
-                lib.RCON_Event evt;
+                RCON_Event evt;
                 while (true)
                 {
                     // receive the latest event
@@ -57,7 +57,7 @@ namespace BM_RCON
                     logger.Log("");
 
                     // check if somebody type something in the chat
-                    if (evt.EventID == (short)lib.EventType.chat_message)
+                    if (evt.EventID == (short)EventType.chat_message)
                     {
                         // get the message
                         string msg = evt.JsonAsObj.Message.ToString();
@@ -75,12 +75,12 @@ namespace BM_RCON
 
                     // if the server ping the rcon client,
                     // ping it back to keep the connection alive
-                    if (evt.EventID == (short)lib.EventType.rcon_ping)
+                    if (evt.EventID == (short)EventType.rcon_ping)
                     {
                         sendRequest(rcon_obj, RequestType.ping, "I pinged");
                     }
                     // if a player taunts, stop the loop
-                    if (evt.EventID == (short)lib.EventType.player_taunt)
+                    if (evt.EventID == (short)EventType.player_taunt)
                     {
                         break;
                     }

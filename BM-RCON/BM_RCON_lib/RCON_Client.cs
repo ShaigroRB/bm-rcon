@@ -225,7 +225,7 @@ namespace BM_RCON.BM_RCON_lib
 
                     rcon_evt = ParsePacket(packet_received);
 
-                    logger.LogDebug($"Event ({rcon_evt.EventID}) received.");
+                    logger.LogDebug($"Event {(EventType)rcon_evt.EventID} ({rcon_evt.EventID}) received.");
                 }
             }
             catch (Exception e)

@@ -2,13 +2,20 @@
 {
     /// <summary>
     /// Enum for AI modes
-    /// The difference between AIMode and BotDifficulty enums is that there is a 'random' choice for BotDifficulty
     /// </summary>
     enum AIMode
     {
-        easy = 0,
-        normal = 1,
-        hard = 2,
-        cruel = 3
+        /// <summary>Default behavior</summary>
+        normal = 0,
+        /// <summary>Deactivate all AI</summary>
+        deactivate_ai = 1,
+        /// <summary>Deactivate all combat AI</summary>
+        deactivate_combat = 2,
+        /// <summary>Pathfinds to location when you middle-click</summary>
+        pathfind_location = 3,
+        /// <summary>Ignores human players in combat</summary>
+        ignore_human = 4,
+        /// <summary>Ignores other bots in combat</summary>
+        ignore_bot = 5,
     }
 }

@@ -1,11 +1,9 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
     /// <summary>
-    /// Enum for enemies ID
-    /// Some enemies might be added later.
-    /// The operator enemy is written "operator_" as it's a reserved keyword.
+    /// Enum for enemies.
     /// </summary>
-    enum EnemyID
+    enum Enemy
     {
         cannibal = 0,
         hopper = 1,
@@ -20,16 +18,19 @@
         demolition_guy = 10,
         ninja = 11,
         samurai = 12,
+        /// <summary>Spawning Indigo will only spawn him. No purple will spawn with him.</summary>
         indigo = 13,
         blue_captain = 14,
         grandmaster = 15,
         explodebot_5000 = 16,
         anthropophagite = 17,
+        /// <summary>Spawning Moxxy will also spawn Roxxy</summary>
         moxxy = 18,
+        /// <summary>Spawning Roxxy will also spawn Moxxy</summary>
         roxxy = 19,
         disciple = 20,
         manling = 21,
-        // underscore at the end 'cause "operator" is a keyword (not available)
+        /// <summary>The operator enemy is written "operator_" as "operator" is already a reserved keyword.</summary>
         operator_ = 22,
         cowboy = 23,
         archer = 24,
@@ -41,9 +42,9 @@
     }
 
     /// <summary>
-    /// Enum for subtypes ID of enemies 
+    /// Enum for enemies rank 
     /// </summary>
-    enum SubtypeID
+    enum Rank
     {
         normal = 0,
         strong = 1,

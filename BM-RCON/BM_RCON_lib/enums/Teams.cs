@@ -10,4 +10,18 @@
         the_man = 2,
         spectators = 3
     }
+
+    static class TeamExtension
+    {
+        /// <summary>
+        /// Extension method to get the string associated to a Team
+        /// </summary>
+        /// <param name="team">The team</param>
+        /// <returns>The team as a readable string</returns>
+        public static string GetString(this Team team)
+        {
+            string[] teams = { "None", "USC", "The Man", "SPECTATORS" };
+            return teams[(int)team];
+        }
+    }
 }

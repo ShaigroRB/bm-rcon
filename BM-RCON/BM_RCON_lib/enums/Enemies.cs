@@ -52,4 +52,43 @@
         powerful = 3,
         god_like = 4
     }
+
+    static class EnemyExtension
+    {
+        /// <summary>
+        /// Extension method to get the string associated to an Enemy
+        /// </summary>
+        /// <param name="enemy">The enemy</param>
+        /// <returns>The enemy as a readable string</returns>
+        public static string GetString(this Enemy enemy)
+        {
+            string[] enemies = {
+                "Cannibal", "Hopper", "Blue Soldier",
+                "Purple", "Sniper", "Flesheater",
+                "Blue Lieutenant", "Fuschia", "Leaper",
+                "Bomb Dude", "Demolition Guy", "Ninja",
+                "Samurai", "Indigo", "Blue Captain",
+                "Grandmaster", "EXPLODEBOT 5000", "Anthropophagite",
+                "Moxxy", "Roxxy", "Disciple",
+                "Manling", "Operator", "Cowboy",
+                "Archer", "Zombie", "Zhost",
+                "Zpitter", "Zomikaze", "Doctor"
+            };
+            return enemies[(int)enemy];
+        }
+
+        /// <summary>
+        /// Extension method to get the string associated to a Rank
+        /// </summary>
+        /// <param name="rank">The rank</param>
+        /// <returns>The rank as a readable string</returns>
+        public static string GetString(this Rank rank)
+        {
+            string[] ranks = {
+                "Normal", "Strong", "Elite",
+                "Powerful", "God-like"
+            };
+            return ranks[(int)rank];
+        }
+    }
 }

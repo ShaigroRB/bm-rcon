@@ -1,11 +1,11 @@
 ﻿namespace BM_RCON.BM_RCON_lib
 {
     /// <summary>
-    /// Enum for teams ID
+    /// Enum for teams
     /// </summary>
-    enum TeamID
+    enum Team
     {
-        player = 0,
+        deathmatch = 0,
         usc = 1,
         the_man = 2,
         spectators = 3

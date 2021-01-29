@@ -26,8 +26,6 @@ namespace BM_RCON
         {            
             // use a ConsoleLogger as our logger
             ILogger logger = new ConsoleLogger();
-            BotDifficulty difficulty = BotDifficulty.normal;
-            logger.LogWarning(difficulty.GetString());
             try
             {
                 /*

@@ -30,8 +30,7 @@
         roxxy = 19,
         disciple = 20,
         manling = 21,
-        /// <summary>The operator enemy is written "operator_" as "operator" is already a reserved keyword.</summary>
-        operator_ = 22,
+        @operator = 22,
         cowboy = 23,
         archer = 24,
         zombie = 25,

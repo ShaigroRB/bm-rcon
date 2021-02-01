@@ -20,7 +20,7 @@
         /// <returns>The team as a readable string</returns>
         public static string GetString(this Team team)
         {
-            string[] teams = { "None", "USC", "The Man", "SPECTATORS" };
+            string[] teams = { "Global", "USC", "The Man", "SPECTATORS" };
             return teams[(int)team];
         }
     }

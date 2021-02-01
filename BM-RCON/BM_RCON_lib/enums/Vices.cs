@@ -78,5 +78,16 @@
             };
             return vices[(int)vice];
         }
+
+        /// <summary>
+        /// Check if a number is equal to the vice
+        /// </summary>
+        /// <param name="vice">The vice</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this Vice vice, int nb)
+        {
+            return vice == (Vice)nb;
+        }
     }
 }

@@ -72,4 +72,18 @@
         survival_bomb_exploded = 64,
         survival_bomb_rearmed = 65
     }
+
+    static class EventTypeExtension
+    {
+        /// <summary>
+        /// Check if a number is equal to the event type
+        /// </summary>
+        /// <param name="eventType">The event type</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this EventType eventType, int nb)
+        {
+            return eventType == (EventType)nb;
+        }
+    }
 }

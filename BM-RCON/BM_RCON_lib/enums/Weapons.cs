@@ -127,5 +127,16 @@
             };
             return weapons[(int)weapon];
         }
+
+        /// <summary>
+        /// Check if a number is equal to the weapon
+        /// </summary>
+        /// <param name="weapon">The weapon</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this Weapon weapon, int nb)
+        {
+            return weapon == (Weapon)nb;
+        }
     }
 }

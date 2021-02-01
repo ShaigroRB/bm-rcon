@@ -50,5 +50,16 @@
             };
             return missions[(int)mission];
         }
+
+        /// <summary>
+        /// Check if a number is equal to the mission
+        /// </summary>
+        /// <param name="mission">The mission</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this Mission mission, int nb)
+        {
+            return mission == (Mission)nb;
+        }
     }
 }

@@ -17,4 +17,18 @@
         confirm = 6,
         request_scoreboard = 7
     }
+
+    static class RequestTypeExtension
+    {
+        /// <summary>
+        /// Check if a number is equal to the request
+        /// </summary>
+        /// <param name="request">The request</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this RequestType request, int nb)
+        {
+            return request == (RequestType)nb;
+        }
+    }
 }

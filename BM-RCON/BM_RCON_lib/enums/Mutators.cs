@@ -105,5 +105,47 @@
             };
             return mutators[(int)mutator];
         }
+
+        /// <summary>
+        /// Check if the value "ON" is possible for the mutator
+        /// </summary>
+        /// <param name="mutator">The mutator</param>
+        /// <returns>If "ON" is a possible value, returns true. Otherwise, returns false.</returns>
+        public static bool IsOnPossible(this Mutator mutator)
+        {
+            bool isPossible = true;
+            switch (mutator)
+            {
+                case Mutator.score_limit:
+                case Mutator.zombies:
+                case Mutator.max_health:
+                case Mutator.double_jumping:
+                case Mutator.weapon_behavior:
+                case Mutator.team_size:
+                case Mutator.perma_invisibility:
+                case Mutator.spawn_points:
+                case Mutator.round_limit:
+                case Mutator.team_switch:
+                case Mutator.primary_duel_weapon:
+                case Mutator.secondary_duel_weapon:
+                case Mutator.duel_nade:
+                case Mutator.duel_dual_wield:
+                case Mutator.cycling:
+                case Mutator.equipment:
+                case Mutator.deathstreak:
+                case Mutator.force_primary:
+                case Mutator.force_secondary:
+                case Mutator.force_nade:
+                case Mutator.force_dual_wield:
+                case Mutator.picks:
+                case Mutator.captains:
+                case Mutator.previous_picks:
+                    isPossible = false;
+                    break;
+                default:
+                    break;
+            }
+            return isPossible;
+        }
     }
 }

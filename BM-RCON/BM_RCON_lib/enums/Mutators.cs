@@ -69,5 +69,41 @@
         captains = 82,
         previous_picks = 83
     }
+
+    static class MutatorExtension
+    {
+        /// <summary>
+        /// Extension method to get the string associated to a Mutator
+        /// </summary>
+        /// <param name="mutator">The mutator</param>
+        /// <returns>The team as a readable string</returns>
+        public static string GetString(this Mutator mutator)
+        {
+            string[] mutators = {
+                "", "Score Limit", "", "",
+                "Autobalance", "Overtime", "Medikits",
+                "Ammoboxes", "Hazards", "Powerups",
+                "Grace Period", "", "", "Zombies", "",
+                "Barf-Mania", "Fall Damage", "Auto-Reloading",
+                "Amphibious Weapons", "Friendly Fire", "Max Health",
+                "Dual-Wielding", "Infinite Ammo", "Infinite 'Nades",
+                "Double Jumping", "Infinite O2", "Weapon Behavior",
+                "Random Weapons", "Tactical", "Perma-Invisibility",
+                "Perma-Triple Damage", "Perma-Super Speed", "Perma-Regen",
+                "Perma-Poison", "Vampirism", "Explosive Death", "Headshots",
+                "Team Size", "", "Random Deaths", "Alcoholics Anonymous",
+                "Floor = Lava", "Infinite Money", "", "Perma-Jetpack",
+                "Perma-Skateboard", "Perma-Scuba", "Control Point",
+                "Spawn Points", "Round Limit", "", "Team Switch",
+                "Primary Duel Weapon", "Secondary Duel Weapon", "Duel 'Nade",
+                "Duel Dual-wield", "Helicopter", "Random Zombies", "",
+                "Vices", "Survival Messages", "", "", "", "", "", "", "",
+                "Cycling", "", "Equipment", "Deathstreak", "", "",
+                "Force Primary", "Force Secondary", "Force 'Nade",
+                "Force Dual-wield", "Change Weapons", "Drop Weapons", "",
+                "Picks", "Captains", "Previous Picks"
+            };
+            return mutators[(int)mutator];
+        }
     }
 }

@@ -23,6 +23,7 @@
         public static string GetString(this PowerUp power)
         {
             string[] powers = {
+                "",
                 "Triple Damage", "Super Speed",
                 "Regeneration", "Invisibility"
             };

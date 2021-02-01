@@ -23,10 +23,22 @@
         public static string GetString(this PowerUp power)
         {
             string[] powers = {
+                "",
                 "Triple Damage", "Super Speed",
                 "Regeneration", "Invisibility"
             };
             return powers[(int)power];
+        }
+
+        /// <summary>
+        /// Check if a number is equal to the power
+        /// </summary>
+        /// <param name="power">The power</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this PowerUp power, int nb)
+        {
+            return power == (PowerUp)nb;
         }
     }
 }

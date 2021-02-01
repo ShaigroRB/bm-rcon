@@ -20,8 +20,19 @@
         /// <returns>The team as a readable string</returns>
         public static string GetString(this Team team)
         {
-            string[] teams = { "None", "USC", "The Man", "SPECTATORS" };
+            string[] teams = { "Global", "USC", "The Man", "SPECTATORS" };
             return teams[(int)team];
+        }
+
+        /// <summary>
+        /// Check if a number is equal to the team
+        /// </summary>
+        /// <param name="team">The team</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this Team team, int nb)
+        {
+            return team == (Team)nb;
         }
     }
 }

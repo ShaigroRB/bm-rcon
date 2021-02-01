@@ -30,8 +30,7 @@
         roxxy = 19,
         disciple = 20,
         manling = 21,
-        /// <summary>The operator enemy is written "operator_" as "operator" is already a reserved keyword.</summary>
-        operator_ = 22,
+        @operator = 22,
         cowboy = 23,
         archer = 24,
         zombie = 25,
@@ -89,6 +88,28 @@
                 "Powerful", "God-like"
             };
             return ranks[(int)rank];
+        }
+
+        /// <summary>
+        /// Check if a number is equal to the enemy
+        /// </summary>
+        /// <param name="enemy">The enemy</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this Enemy enemy, int nb)
+        {
+            return enemy == (Enemy)nb;
+        }
+
+        /// <summary>
+        /// Check if a number is equal to the rank
+        /// </summary>
+        /// <param name="rank">The rank</param>
+        /// <param name="nb">The number</param>
+        /// <returns>true if equals, false otherwise</returns>
+        public static bool IsEqual(this Rank rank, int nb)
+        {
+            return rank == (Rank)nb;
         }
     }
 }

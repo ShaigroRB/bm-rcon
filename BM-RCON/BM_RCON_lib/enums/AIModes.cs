@@ -17,5 +17,7 @@
         ignore_human = 4,
         /// <summary>Ignores other bots in combat</summary>
         ignore_bot = 5,
+        /// <summary>Defend own spawn point from enemies</summary>
+        defend_spawn_point = 6
     }
 }

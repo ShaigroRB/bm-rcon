@@ -41,7 +41,11 @@ namespace BM_RCON
                 // init rcon object with address, port, password and logger
                 RCON_Client rcon_obj = new RCON_Client(addr, port, body, logger);
                 // connect the rcon client to addr:port with body
-                rcon_obj.Connect();
+                int status = rcon_obj.Connect();
+                if (status == 1)
+                {
+                    throw new Exception("Failed to connect to the server");
+                }
                 logger.Log("");
 
                 // enable mutators on server if not enabled
@@ -93,8 +97,8 @@ namespace BM_RCON
             // if something goes wrong, you will end up here
             catch (Exception e)
             {
-                logger.LogError(e.ToString());
-                logger.LogError("Something went wrong in the main.");
+                logger.Error(e.ToString());
+                logger.Error("Something went wrong in the main.");
             }
 
             // press 'Enter' to exit the console

@@ -7,21 +7,59 @@ namespace BM_RCON.BM_RCON_lib
     /// </summary>
     class ConsoleLogger : ILogger
     {
+        private bool isTrace;
         private bool isDebug;
 
-        public ConsoleLogger(bool isDebug = true)
+        /// <summary>
+        /// Initialize a ConsoleLogger
+        /// </summary>
+        /// <param name="isDebug">Set if Debug verbosity is enabled</param>
+        /// <param name="isTrace">Set if Trace verbosity is enabled</param>
+        public ConsoleLogger(bool isDebug = false, bool isTrace = false)
         {
+            this.isTrace = isTrace;
             this.isDebug = isDebug;
         }
 
-        public void DisableDebug()
+        public void Log(string msg)
         {
-            isDebug = false;
+            Console.WriteLine($"{DateTime.UtcNow} {msg}");
         }
 
-        public void EnableDebug()
+        public void Trace(string msg)
         {
-            isDebug = true;
+            if (isTrace)
+            {
+                Log($"[TRACE] {msg}");
+            }
+        }
+
+        public void Debug(string msg)
+        {
+            if (isDebug)
+            {
+                Log($"[DEBUG] {msg}");
+            }
+        }
+
+        public void Info(string msg)
+        {
+            Log($"[INFO] {msg}");
+        }
+
+        public void Warning(string msg)
+        {
+            Log($"[WARNING] {msg}");
+        }
+
+        public void Error(string msg)
+        {
+            Log($"[ERROR] {msg}");
+        }
+
+        public void Fatal(string msg)
+        {
+            Log($"[FATAL] {msg}");
         }
 
         public bool IsDebugEnabled()
@@ -29,38 +67,19 @@ namespace BM_RCON.BM_RCON_lib
             return isDebug;
         }
 
-        public void Log(string msg)
+        public bool IsTraceEnabled()
         {
-            Console.WriteLine(msg);
+            return isTrace;
         }
 
-        public void LogDebug(string msg)
+        public void SetDebug(bool state)
         {
-            if (isDebug)
-            {
-                Console.WriteLine("[DEBUG]: {0}", msg);
-            }
+            isDebug = state;
         }
 
-        public void LogError(string msg)
+        public void SetTrace(bool state)
         {
-            Console.WriteLine("[ERROR]: {0}", msg);
-        }
-
-        public void LogInfo(string msg)
-        {
-            Console.WriteLine("[INFO]: {0}", msg);
-        }
-
-        public void LogWarning(string msg)
-        {
-            Console.WriteLine("[WARNING]: {0}", msg);
-        }
-
-        public bool ToggleDebug()
-        {
-            isDebug = !isDebug;
-            return isDebug;
+            isTrace = state;
         }
     }
 }

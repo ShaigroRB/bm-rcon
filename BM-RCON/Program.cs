@@ -22,9 +22,11 @@ namespace BM_RCON
         }
 
         static int Main()
-        {            
+        {
             // use a ConsoleLogger as our logger
             ILogger logger = new ConsoleLogger(true);
+            // start writing the logs to the console
+            logger.StartWriting();
             try
             {
                 /*
@@ -41,6 +43,7 @@ namespace BM_RCON
                 RCON_Client rcon_obj = new RCON_Client(addr, port, body, logger);
                 // connect the rcon client to addr:port with body
                 int status = rcon_obj.Connect();
+                // if connection failed, throw an ex
                 if (status == 1)
                 {
                     throw new Exception("Failed to connect to the server");
@@ -94,6 +97,9 @@ namespace BM_RCON
                 logger.Fatal(e.ToString());
                 logger.Fatal("Something went wrong in the main.");
             }
+
+            // stop writing the logs to the console
+            logger.StopWriting();
 
             // press 'Enter' to exit the console
             Console.Read();

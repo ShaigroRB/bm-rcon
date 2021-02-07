@@ -40,6 +40,10 @@ namespace BM_RCON.BM_RCON_lib
             {
                 Log($"[DEBUG] {msg}");
             }
+            else if (isTrace)
+            {
+                Log($"[TRACE] {msg}");
+            }
         }
 
         public void Info(string msg)

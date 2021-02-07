@@ -21,7 +21,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="logger">The logger used</param>
         public RCON_Event(short json_size, short eventID, string json, ILogger logger)
         {
-            logger.Debug("Instanciation of an event.");
+            logger.Trace("Instanciation of an event.");
 
             logger.Trace($"JSON size: {json_size}, id: {eventID}, json: {json}");
             // the json size takes into account the end delimiter which length is 3 bits

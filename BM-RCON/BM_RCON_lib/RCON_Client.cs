@@ -29,7 +29,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="logger">The logger used</param>
         public RCON_Client(string addr, int port, string password, ILogger logger)
         {
-            logger.Debug($"A client connecting to {addr}:{port} is instanciating.");
+            logger.Trace($"A client connecting to {addr}:{port} is instanciating.");
             this.address = addr;
             this.port = port;
             this.password = password;
@@ -52,7 +52,7 @@ namespace BM_RCON.BM_RCON_lib
             {
                 logger.Info($"Connecting to {address}:{port} using '{password[0]}..' as password...");
 
-                logger.Debug($"Instanciating TCPClient on {address}:{port}");
+                logger.Debug($"Creating a client for {address}:{port}");
                 // no method to reconnect, let's instanciate one each time...
                 this.client = new TcpClient(this.address, this.port);
 
@@ -179,7 +179,7 @@ namespace BM_RCON.BM_RCON_lib
             // get json as string from bytes and remove the end delimiter
             string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
 
-            logger.Debug($"Creation of RCON_Event with json size: {json_size}, ID: {eventID}, json: {pckt_json}");
+            logger.Trace($"Creating an event.");
             RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json, logger);
 
             logger.Trace("RCON_Client.ParsePacket(bytes) finishes.");
@@ -239,7 +239,7 @@ namespace BM_RCON.BM_RCON_lib
             }
             else
             {
-                logger.Debug($"Request of type {req_type.ToString()} and body {body} sent to the server.");
+                logger.Debug($"Request of type: {req_type.ToString()}, body: '{body}' sent to the server.");
             }
             logger.Trace("RCON_Client.SendRequest(type, body) finishes.");
             return status;

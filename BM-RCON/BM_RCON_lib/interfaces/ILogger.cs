@@ -13,49 +13,63 @@ namespace BM_RCON.BM_RCON_lib
         void Log(string msg);
 
         /// <summary>
+        /// Trace logging (highest verbosity)
+        /// </summary>
+        /// <param name="msg">Message to log</param>
+        void Trace(string msg);
+
+        /// <summary>
+        /// Debug logging
+        /// </summary>
+        /// <param name="msg">Message to log</param>
+        void Debug(string msg);
+
+        /// <summary>
         /// Info logging
         /// </summary>
         /// <param name="msg">Message to log</param>
-        void LogInfo(string msg);
-
-        /// <summary>
-        /// Debug logging (only if debug is enabled)
-        /// </summary>
-        /// <param name="msg">Message to log</param>
-        void LogDebug(string msg);
-
-        /// <summary>
-        /// Error logging
-        /// </summary>
-        /// <param name="msg">Message to log</param>
-        void LogError(string msg);
+        void Info(string msg);
 
         /// <summary>
         /// Warning logging
         /// </summary>
         /// <param name="msg">Message to log</param>
-        void LogWarning(string msg);
+        void Warning(string msg);
 
         /// <summary>
-        /// Enable debug logging
+        /// Error logging
         /// </summary>
-        void EnableDebug();
+        /// <param name="msg">Message to log</param>
+        void Error(string msg);
 
         /// <summary>
-        /// Disable debug logging
+        /// Fatal logging
         /// </summary>
-        void DisableDebug();
+        /// <param name="msg">Message to log</param>
+        void Fatal(string msg);
 
         /// <summary>
-        /// Toggle debug logging
+        /// Set state of debug logging
         /// </summary>
-        /// <returns>Returns current state of debug logging</returns>
-        bool ToggleDebug();
+        /// <param name="state">The state to set</param>
+        void SetDebug(bool state);
 
         /// <summary>
-        /// State of debug logging
+        /// Check if debug is enabled
         /// </summary>
         /// <returns>Returns current state of debug logging</returns>
         bool IsDebugEnabled();
+
+        /// <summary>
+        /// Set state of trace logging
+        /// </summary>
+        /// <param name="state">The state to set</param>
+        void SetTrace(bool state);
+
+        /// <summary>
+        /// Check if trace is enabled
+        /// </summary>
+        /// <returns>Returns current state of trace logging</returns>
+        bool IsTraceEnabled();
     }
 }

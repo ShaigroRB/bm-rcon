@@ -21,17 +21,25 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="logger">The logger used</param>
         public RCON_Event(short json_size, short eventID, string json, ILogger logger)
         {
+            logger.Trace("Instanciation of an event.");
+
+            logger.Trace($"JSON size: {json_size}, id: {eventID}, json: {json}");
             // the json size takes into account the end delimiter which length is 3 bits
             // real size of the json is json - 3
             this.JsonSize = json_size;
+
             // the event ID is in also in the json, if needed
             this.EventID = eventID;
+
             // json as string
             this.JsonAsString = json;
+
+            logger.Trace("Parsing the json as an object.");
             // json as object
             this.JsonAsObj = JObject.Parse(json);
             // logger used for Print method
             this.logger = logger;
+            logger.Trace("Finished the instanciation of the event.");
         }
 
         /// <summary>
@@ -59,9 +67,12 @@ namespace BM_RCON.BM_RCON_lib
         /// </summary>
         public void Print()
         {
-            logger.LogInfo("JSON size: " + JsonSize.ToString());
-            logger.LogInfo("Event ID: " + EventID.ToString());
-            logger.LogInfo("JSON: " + JsonAsString);
+            logger.Trace("RCON_Event.Print() starts.");
+            logger.Debug("Printing the event info of an event.");
+            logger.Info("JSON size: " + JsonSize.ToString());
+            logger.Info("Event ID: " + EventID.ToString());
+            logger.Info("JSON: " + JsonAsString);
+            logger.Trace("RCON_Event.Print() finishes.");
         }
     }
 }

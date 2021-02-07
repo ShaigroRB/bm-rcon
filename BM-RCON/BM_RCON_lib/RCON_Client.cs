@@ -29,6 +29,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <param name="logger">The logger used</param>
         public RCON_Client(string addr, int port, string password, ILogger logger)
         {
+            logger.Trace($"A client connecting to {addr}:{port} is instanciating.");
             this.address = addr;
             this.port = port;
             this.password = password;
@@ -36,6 +37,7 @@ namespace BM_RCON.BM_RCON_lib
 
             UTF8Encoding uTF8 = new UTF8Encoding();
             this.start_del_bytes = uTF8.GetBytes("┐");
+            logger.Trace("Finished instanciating the client.");
         }
 
         /// <summary>
@@ -44,33 +46,39 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns 0 if successfully connected, otherwise returns 1</returns>
         public int Connect()
         {
+            logger.Trace("RCON_Client.Connect() starts.");
             int status;
             try
             {
-                logger.LogInfo($"Connecting to {address}:{port} using '{password}' as password...");
+                logger.Info($"Connecting to {address}:{port} using '{password[0]}..' as password...");
 
+                logger.Debug($"Creating a client for {address}:{port}");
                 // no method to reconnect, let's instanciate one each time...
                 this.client = new TcpClient(this.address, this.port);
 
+                logger.Trace("Getting stream from the client.");
                 NetworkStream stream = this.client.GetStream();
+                logger.Trace("Setting timeout of stream's writing to 7000ms.");
                 stream.WriteTimeout = 7000;
 
+                logger.Trace($"Send request to login with '{password[0]}..' as password");
                 status = SendRequest(RequestType.login, this.password);
                 if (status == 1)
                 {
-                    logger.LogWarning("Failed to connect.");
+                    logger.Error("Failed to connect.");
                 }
                 else
                 {
-                    logger.LogInfo("Connection successful.");
+                    logger.Info("Connection successful.");
                 }
             }
             catch (Exception e)
             {
-                logger.LogError("Failed to connect.");
-                logger.LogError($"Error: {e.ToString()}");
+                logger.Fatal("Failed to connect.");
+                logger.Debug($"Error: {e.ToString()}");
                 status = 1;
             }
+            logger.Trace("RCON_Client.Connect() finishes.");
             return status;
         }
 
@@ -79,8 +87,11 @@ namespace BM_RCON.BM_RCON_lib
         /// </summary>
         public void Disconnect()
         {
+            logger.Trace("RCON_Client.Disconnect() starts.");
+            logger.Debug($"Closing the client opened on {address}:{port}");
             this.client.Close();
-            logger.LogInfo($"Client {address}:{port} disconnected.");
+            logger.Info($"Client on {address}:{port} disconnected.");
+            logger.Trace("RCON_Client.Disconnect() finishes.");
         }
 
         /// <summary>
@@ -91,6 +102,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns the packet</returns>
         public byte[] CreatePacket(RequestType RequestType, string body)
         {
+            logger.Trace("RCON_Client.CreatePacket(type, body) starts.");
             /*
              * final_packet is a concatenation of:
              * - a short (16-bit integer) corresponding to the request's type
@@ -102,25 +114,31 @@ namespace BM_RCON.BM_RCON_lib
             UTF8Encoding uTF8 = new UTF8Encoding();
 
             // convert into bytes
+            logger.Trace("Converting the request type to bytes.");
             byte[] req_type_bytes = BitConverter.GetBytes(req_type);
+            logger.Trace("Converting the body to bytes.");
             byte[] body_bytes = uTF8.GetBytes(body);
 
             // final packet
             // + 1 at the end to add a null byte
+            logger.Trace("Creating the final packet.");
             byte[] final_packet = new byte[req_type_bytes.Length + body_bytes.Length + 1];
 
             int byte_ptr = 0;
 
             // copy bytes to final packet
+            logger.Trace("Copying the request type to the final packet.");
             req_type_bytes.CopyTo(final_packet, byte_ptr);
             byte_ptr += req_type_bytes.Length;
 
+            logger.Trace("Copying the body to the final packet.");
             body_bytes.CopyTo(final_packet, byte_ptr);
             byte_ptr += body_bytes.Length;
 
             // don't forget the last null byte
             final_packet[byte_ptr] = (byte)0;
 
+            logger.Trace("RCON_Client.CreatePacket(type, body) finishes.");
             return final_packet;
         }
 
@@ -131,6 +149,7 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns a RCON_Event object</returns>
         public RCON_Event ParsePacket(byte[] pckt_bytes)
         {
+            logger.Trace("RCON_Client.ParsePacket(bytes) starts.");
             /*
              * pckt_bytes is a concatenation of:
              * - the start delimiter "┐"
@@ -148,17 +167,22 @@ namespace BM_RCON.BM_RCON_lib
             // number of bytes for 16-bit integer
             int short_bytes = 2;
 
+            logger.Trace("Getting JSON size from the packet as bytes.");
             // convert bytes to short
             short json_size = BitConverter.ToInt16(pckt_bytes, byte_ptr);
             byte_ptr += short_bytes;
+            logger.Trace("Getting event ID from the packet as bytes.");
             short eventID = BitConverter.ToInt16(pckt_bytes, byte_ptr);
             byte_ptr += short_bytes;
 
+            logger.Trace("Get the JSON from the packet as bytes.");
             // get json as string from bytes and remove the end delimiter
             string pckt_json = uTF8.GetString(pckt_bytes, byte_ptr, json_size).TrimEnd('└');
 
+            logger.Trace($"Creating an event.");
             RCON_Event rcon_event = new RCON_Event(json_size, eventID, pckt_json, logger);
 
+            logger.Trace("RCON_Client.ParsePacket(bytes) finishes.");
             return rcon_event;
         }
 
@@ -169,21 +193,26 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns 0 if the request was successfully sent, otherwise returns 1</returns>
         public int SendRequest(byte[] req)
         {
+            logger.Trace("RCON_Client.SendRequest(bytes) starts.");
             int status = 0;
             try
             {
+                logger.Trace("Getting stream from the client.");
                 NetworkStream stream = this.client.GetStream();
+                logger.Trace("Setting timeout of stream's writing to 7000ms.");
                 stream.WriteTimeout = 7000;
+                logger.Trace("Writing on the stream.");
                 stream.Write(req, 0, req.Length);
 
-                logger.LogDebug($"Request ({Encoding.UTF8.GetString(req)}) sent.");
+                logger.Trace($"Writing on the stream successful.");
             }
             catch (Exception e)
             {
-                logger.LogError("Failed to send a request.");
-                logger.LogError($"Error: {e.ToString()}");
+                logger.Error("Failed to send a request.");
+                logger.Debug($"Error: {e.ToString()}");
                 status = 1;
             }
+            logger.Trace("RCON_Client.SendRequest(bytes) finishes.");
             return status;
         }
 
@@ -195,12 +224,24 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns 0 if the request was successfully sent, otherwise returns 1</returns>
         public int SendRequest(RequestType req_type, string body)
         {
+            logger.Trace("RCON_Client.SendRequest(type, body) starts.");
+            logger.Trace($"Creating packet of type: {req_type.ToString()}, body: {body}");
             byte[] pckt = CreatePacket(req_type, body);
+
+            logger.Trace("Packet created.");
+            logger.Trace("Sending request.");
             int status = SendRequest(pckt);
+
+            logger.Trace("Checking if the request was successfully sent to the server.");
             if (status == 1)
             {
-                logger.LogWarning($"Failed to send request of type {req_type.ToString()} and of body {body}");
+                logger.Error($"Failed to send request of type {req_type.ToString()} and of body {body}");
             }
+            else
+            {
+                logger.Debug($"Request of type: {req_type.ToString()}, body: '{body}' sent to the server.");
+            }
+            logger.Trace("RCON_Client.SendRequest(type, body) finishes.");
             return status;
         }
 
@@ -210,30 +251,37 @@ namespace BM_RCON.BM_RCON_lib
         /// <returns>Returns a RCON_Event if successfully received the next event, otherwise returns null</returns>
         public RCON_Event ReceiveEvent()
         {
+            logger.Trace("RCON_Client.ReceiveEvent() starts.");
             RCON_Event rcon_evt = null;
             try
             {
+                logger.Trace("Getting stream from the client.");
                 // always get stream, and do not close it afterwards
                 NetworkStream stream = this.client.GetStream();
+                logger.Trace("Setting timeout of stream's reading to 7000ms.");
                 stream.ReadTimeout = 7000;
 
                 byte[] packet_received = new byte[this.client.ReceiveBufferSize];
                 if (this.client.ReceiveBufferSize > 0)
                 {
+                    logger.Trace("Reading data from the stream.");
                     // reads data from stream and put it in the buffer "packet_received"
                     stream.Read(packet_received, 0, packet_received.Length);
 
+                    logger.Trace("Parsing the data received and create a new event from it.");
                     rcon_evt = ParsePacket(packet_received);
 
-                    logger.LogDebug($"Event {(EventType)rcon_evt.EventID} ({rcon_evt.EventID}) received.");
+                    logger.Debug($"Event {(EventType)rcon_evt.EventID} ({rcon_evt.EventID}) received.");
                 }
+                logger.Trace("Finished checking for data in the stream");
             }
             catch (Exception e)
             {
-                logger.LogError("Failed to receive event.");
-                logger.LogError($"Error: {e.ToString()}");
+                logger.Error("Failed to receive event.");
+                logger.Debug($"Error: {e.ToString()}");
             }
 
+            logger.Trace("RCON_Client.ReceiveEvent() finishes.");
             return rcon_evt;
         }
     }

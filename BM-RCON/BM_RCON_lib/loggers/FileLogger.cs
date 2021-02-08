@@ -1,26 +1,32 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace BM_RCON.BM_RCON_lib
 {
     /// <summary>
-    /// Output logging to console
+    /// Output logging to a file
     /// </summary>
-    class ConsoleLogger : ILogger
+    class FileLogger : ILogger
     {
-        private bool isTrace;
         private bool isDebug;
+        private bool isTrace;
+        private readonly string path;
         private bool isWritingAllowed;
+        private StreamWriter writer;
 
         /// <summary>
-        /// Initialize a ConsoleLogger
+        /// Initializes a FileLogger
         /// </summary>
+        /// <param name="path">The path to the file where the logs will be written</param>
         /// <param name="isDebug">Set if Debug verbosity is enabled</param>
         /// <param name="isTrace">Set if Trace verbosity is enabled</param>
-        public ConsoleLogger(bool isDebug = false, bool isTrace = false)
+        public FileLogger(string path = "bm_rcon_logs", bool isDebug = false, bool isTrace = false)
         {
-            this.isTrace = isTrace;
+            this.path = $"{path}_{DateTime.Now.ToString("yyyy-dd-M_HH-mm-ss")}.txt";
             this.isDebug = isDebug;
+            this.isTrace = isTrace;
             this.isWritingAllowed = false;
         }
 
@@ -28,7 +34,7 @@ namespace BM_RCON.BM_RCON_lib
         {
             if (isWritingAllowed)
             {
-                Console.WriteLine($"{DateTime.UtcNow} {msg}");
+                writer.WriteLine($"{DateTime.UtcNow} {msg}");
             }
         }
 
@@ -94,14 +100,33 @@ namespace BM_RCON.BM_RCON_lib
 
         public int StartWriting()
         {
-            // check if there is a console available
-            isWritingAllowed = (Process.GetCurrentProcess().MainWindowHandle != IntPtr.Zero);
-            return isWritingAllowed ? 0 : 1;
+            try
+            {
+                writer = new StreamWriter(path, true)
+                {
+                    AutoFlush = true
+                };
+                isWritingAllowed = true;
+            }
+            catch
+            { 
+                isWritingAllowed = false;
+                return 1;
+            }
+            return 0;
         }
 
         public int StopWriting()
         {
             isWritingAllowed = false;
+            try
+            {
+                writer.Close();
+            }
+            catch
+            {
+                return 1;
+            }
             return 0;
         }
     }

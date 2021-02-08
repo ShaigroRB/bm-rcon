@@ -71,5 +71,17 @@ namespace BM_RCON.BM_RCON_lib
         /// </summary>
         /// <returns>Returns current state of trace logging</returns>
         bool IsTraceEnabled();
+
+        /// <summary>
+        /// Start writing the logs
+        /// </summary>
+        /// <returns>Returns 1 if an error occurs, 0 otherwise</returns>
+        int StartWriting();
+
+        /// <summary>
+        /// Stop writing the logs
+        /// </summary>
+        /// <returns>Returns 1 if an error occurs, 0 otherwise</returns>
+        int StopWriting();
     }
 }

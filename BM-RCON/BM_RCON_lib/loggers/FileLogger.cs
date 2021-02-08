@@ -102,14 +102,17 @@ namespace BM_RCON.BM_RCON_lib
         {
             try
             {
-                writer = new StreamWriter(path, true);
+                writer = new StreamWriter(path, true)
+                {
+                    AutoFlush = true
+                };
+                isWritingAllowed = true;
             }
-            catch (Exception e)
+            catch
             { 
                 isWritingAllowed = false;
                 return 1;
             }
-            isWritingAllowed = true;
             return 0;
         }
 

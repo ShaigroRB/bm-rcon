@@ -14,7 +14,6 @@ Check *Program.cs* for a complete example on how to use the library.
 
 ## Todo
 - Tests (maybe...)
-- ILogger with two basic loggers (FileLogger and ConsoleLogger)
 - Update enums for latest beta release
 
 ## Licenses
